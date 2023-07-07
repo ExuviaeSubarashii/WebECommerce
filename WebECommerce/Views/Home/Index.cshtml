@@ -1,0 +1,75 @@
+﻿<div id="ts-example">
+    <br />
+    <button type="button" class="btn btn-primary btn-md" onclick="TSButton">
+        Click Me
+    </button>
+</div>
+
+<style>
+    body {
+        background-color: #081b29;
+        max-width: 100%;
+    }
+
+    .loginDiv {
+        margin: auto;
+        width: 35%;
+        border: 3px solid green;
+        padding: 10px;
+        height: 350px;
+        align-items: center;
+        max-width: 100%;
+        background-color: #313338;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .welcomeLabel {
+        color: white;
+    }
+
+    .excitedtoSee {
+        color: white;
+    }
+
+    .userInput {
+        display: block;
+        max-width: 100%;
+        background-color: black;
+        color: white;
+        width: 250px;
+    }
+
+    .loginBtn {
+        background-color: #6c65f3;
+        color: white;
+        display: block;
+        max-width: 100%;
+        width: 250px;
+    }
+
+    .registerBtn {
+        color: blue;
+        display: block;
+        max-width: 100%;
+    }
+
+    .form-label {
+        color: white;
+        display: block;
+        max-width: 100%;
+    }
+</style>
+<div class="loginDiv">
+    <p class="welcomeLabel">Welcome back!</p>
+    <p class="excitedtoSee">We're excited to see you again!</p>
+    <label class="form-label">Email</label>
+    <input type="text" class="userInput" id="EmailInput"/>
+    <label class="form-label">Password</label>
+    <input type="text" class="userInput" id="userPasswordInput"/>
+    <br />
+    <button type="submit" class="loginBtn" id="loginBtn">Login</button>
+    <a asp-controller="Home" asp-action="RegisterPage" class="registerBtn">Register</a>
+</div>
