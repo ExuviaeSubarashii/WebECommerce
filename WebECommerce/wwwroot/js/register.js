@@ -1,18 +1,18 @@
-function Login() {
+function Register() {
     var userEmailInput = document.getElementById('EmailInput');
+    var userNameInput = document.getElementById('userNameInput');
     var userPasswordInput = document.getElementById('userPasswordInput');
     var userEmail = userEmailInput.value;
+    var userName = userNameInput.value;
     var userPassword = userPasswordInput.value;
-    var url = 'https://localhost:7004/api/Users/Login' + '?userEmail=' + userEmail + '&userPassword=' + userPassword;
+    var url = "https://localhost:7004/api/Users/Register" + '?userEmail=' + userEmail + '&userName=' + userName + '&userPassword=' + userPassword;
     fetch(url, {
         method: 'POST'
     })
         .then(function (response) {
         if (response.ok) {
             // Request was successful
-            //return response.text();
-            console.log("it worked");
-            window.location.href = '/Home/ReturnCommerceSite';
+            return response.text();
         }
         else {
             // Request failed
@@ -26,4 +26,4 @@ function Login() {
         console.error('Error occurred while sending the request:', error);
     });
 }
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=register.js.map

@@ -48,8 +48,8 @@
     }
 </style>
 <body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <form method="post">
         <div class="loginDiv">
             <label class="form-label">E-MAIL</label>
             <input type="text" class="userInput" id="EmailInput"width="20" />
@@ -60,8 +60,7 @@
             @*get the password*@
             <input type="text" class="userInput" id="userPasswordInput" />
             <br />
-            <button type="submit" id="registerBtn" asp-controller="Home" asp-action="RegisterAccount" class="registerBtn">Register</button>
+            <button type="submit" id="registerBtn"class="registerBtn" onclick="Register()">Register</button>
             <a asp-controller="Home" asp-action="Index" class="returntoLogin">Already have an Account?</a>
         </div>
-    </form>
 </body>

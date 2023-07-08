@@ -1,0 +1,74 @@
+﻿<style>
+    .userPanel {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 9999;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropbtn {
+        background-color: #f1f1f1;
+        color: #333;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        top: 100%;
+        right: 0;
+    }
+
+        .dropdown-content p {
+            color: #333;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .dropdown-content p:hover {
+                background-color: #f1f1f1;
+            }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+</style>
+
+<div class="userPanel">
+    <div class="dropdown">
+        <button class="dropbtn">UserName</button>
+        <div class="dropdown-content">
+            <p id="userNotif" class="userNotif">Account Details</p>
+            <p id="userAccount" class="userAccount">Logout</p>
+        </div>
+    </div>
+</div>
+
+
+<div id="itemsDiv">
+
+</div>
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            GetAllItems();
+        });
+    </script>
+}
+
+

@@ -1,10 +1,10 @@
-﻿<div id="ts-example">
+﻿@*<div id="ts-example">
     <br />
-    <button type="button" class="btn btn-primary btn-md" onclick="TSButton">
+    <button type="button" class="btn btn-primary btn-md" onclick="TSButton()">
         Click Me
     </button>
-</div>
-
+</div>*@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
     body {
         background-color: #081b29;
@@ -70,6 +70,6 @@
     <label class="form-label">Password</label>
     <input type="text" class="userInput" id="userPasswordInput"/>
     <br />
-    <button type="submit" class="loginBtn" id="loginBtn">Login</button>
-    <a asp-controller="Home" asp-action="RegisterPage" class="registerBtn">Register</a>
+    <button type="submit" class="loginBtn" id="loginBtn" onclick="Login()">Login</button>
+    <a asp-controller="Home" asp-action="RegisterPage" class="registerBtn" >Register</a>
 </div>

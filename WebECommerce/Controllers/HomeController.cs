@@ -32,5 +32,9 @@ namespace WebECommerce.Controllers
         {
             return View("RegisterPage");
         }
+        public ActionResult ReturnCommerceSite()
+        {
+            return View("CommerceSite");
+        }
     }
 }
