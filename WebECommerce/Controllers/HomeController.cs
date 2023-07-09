@@ -36,5 +36,9 @@ namespace WebECommerce.Controllers
         {
             return View("CommerceSite");
         }
+        public ActionResult ViewItem()
+        {
+            return View("SpecificItem");
+        }
     }
 }

@@ -1,4 +1,11 @@
 ﻿<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
     .userPanel {
         position: fixed;
         top: 10px;
@@ -47,43 +54,31 @@
     .dropdown:hover .dropdown-content {
         display: block;
     }
-    .itemsDiv{
-        width:150px;
-        text-align: center;
-        padding: 20px;
+
+    .specificItemDiv {
+        height: 750px;
+        width: 750px;
         background-color: #081b29;
-        overflow: auto;
-        display: flex;
-        flex-direction: column-reverse;
-        max-width: 100%;
         border-radius: 30px 5px;
         border-color: black;
         border-style: solid;
-        left: 50px;
-        color:white;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 </style>
-
-<div class="userPanel">
-    <div class="dropdown">
-        <button class="dropbtn">UserName</button>
-        <div class="dropdown-content">
-            <p id="userNotif" class="userNotif">Account Details</p>
-            <p id="userAccount" class="userAccount">Logout</p>
-        </div>
-    </div>
-</div>
-
-
-<div class="itemsDiv" id="itemsDiv">
+<div class="specificItemDiv" id="specificItemDiv">
 
 </div>
+
+
+
+
 @section Scripts {
-    <script>
+    <script type="module">
         document.addEventListener('DOMContentLoaded', function () {
-            GetAllItems();
+            GetTheItem();
         });
     </script>
 }
-
-
