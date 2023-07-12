@@ -1,5 +1,5 @@
 ﻿function GetAllItems() {
-    const itemDiv = document.getElementById('itemsDiv') as HTMLDivElement;
+    const itemsDiv = document.querySelector('#itemsDiv');
     const url = 'https://localhost:7004/api/Items/GetAllItems';
 
     fetch(url, {
@@ -14,23 +14,31 @@
                 throw new Error(response.statusText);
             }
         })
+    
         .then(function (data) {
             data.forEach(item => {
+                var itemDiv = document.createElement("div");
+                itemDiv.classList.add('itemDiv');
+                itemDiv.setAttribute('id', 'itemDiv');
+
                 var itemPara = document.createElement("p");
                 itemPara.classList.add('itemBox');
                 itemPara.setAttribute('id', 'itemBox');
                 itemPara.textContent = item.itemName;
-                itemDiv.appendChild(itemPara);
 
                 var itemPrice = document.createElement("p");
                 itemPrice.classList.add('itemPrice');
                 itemPrice.textContent = item.itemPrice;
-                itemDiv.appendChild(itemPrice);
 
                 var itemPriceTag = document.createElement("p");
                 itemPriceTag.classList.add('itemPriceTag');
                 itemPriceTag.textContent = item.itemPriceTag;
+
+                itemDiv.appendChild(itemPara);
+                itemDiv.appendChild(itemPrice);
                 itemDiv.appendChild(itemPriceTag);
+
+                itemsDiv.appendChild(itemDiv);
             });
         })
         .catch(function (error) {
@@ -39,15 +47,17 @@
 }
 
 
-function gotopage() {
-    const itemName = document.getElementById('itemBox') as HTMLParagraphElement;
+function gotopage(event) {
+    const itemName = event.target.querySelector('.itemBox');
     const itemNameValue = itemName.textContent;
-    window.location.href = '/Home/ViewItem?itemName=' + encodeURIComponent(itemNameValue);
+    window.location.href = '/Home/ViewItem?itemName=' + encodeURIComponent(itemNameValue.trim());
 }
+
 const element = document.getElementById('itemsDiv');
 if (element !== null) {
     element.addEventListener("click", gotopage, false);
 }
+
 
 
 

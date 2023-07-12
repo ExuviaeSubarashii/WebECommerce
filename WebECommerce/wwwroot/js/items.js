@@ -1,5 +1,5 @@
 function GetAllItems() {
-    var itemDiv = document.getElementById('itemsDiv');
+    var itemsDiv = document.querySelector('#itemsDiv');
     var url = 'https://localhost:7004/api/Items/GetAllItems';
     fetch(url, {
         method: 'GET'
@@ -16,29 +16,33 @@ function GetAllItems() {
     })
         .then(function (data) {
         data.forEach(function (item) {
+            var itemDiv = document.createElement("div");
+            itemDiv.classList.add('itemDiv');
+            itemDiv.setAttribute('id', 'itemDiv');
             var itemPara = document.createElement("p");
             itemPara.classList.add('itemBox');
             itemPara.setAttribute('id', 'itemBox');
             itemPara.textContent = item.itemName;
-            itemDiv.appendChild(itemPara);
             var itemPrice = document.createElement("p");
             itemPrice.classList.add('itemPrice');
             itemPrice.textContent = item.itemPrice;
-            itemDiv.appendChild(itemPrice);
             var itemPriceTag = document.createElement("p");
             itemPriceTag.classList.add('itemPriceTag');
             itemPriceTag.textContent = item.itemPriceTag;
+            itemDiv.appendChild(itemPara);
+            itemDiv.appendChild(itemPrice);
             itemDiv.appendChild(itemPriceTag);
+            itemsDiv.appendChild(itemDiv);
         });
     })
         .catch(function (error) {
         console.error('Error occurred while sending the request:', error);
     });
 }
-function gotopage() {
-    var itemName = document.getElementById('itemBox');
+function gotopage(event) {
+    var itemName = event.target.querySelector('.itemBox');
     var itemNameValue = itemName.textContent;
-    window.location.href = '/Home/ViewItem?itemName=' + encodeURIComponent(itemNameValue);
+    window.location.href = '/Home/ViewItem?itemName=' + encodeURIComponent(itemNameValue.trim());
 }
 var element = document.getElementById('itemsDiv');
 if (element !== null) {
