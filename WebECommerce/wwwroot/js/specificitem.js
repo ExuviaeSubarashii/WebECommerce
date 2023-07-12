@@ -1,6 +1,10 @@
-function GetAllItems() {
-    var itemDiv = document.getElementById('itemsDiv');
-    var url = 'https://localhost:7004/api/Items/GetAllItems';
+function Bomba() {
+    console.log('bomba');
+}
+function GetTheItem() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var itemName = urlParams.get('itemName');
+    var url = 'https://localhost:7004/api/Items/GetSpecificItem' + '?itemName=' + itemName;
     fetch(url, {
         method: 'GET'
     })
@@ -16,6 +20,7 @@ function GetAllItems() {
     })
         .then(function (data) {
         data.forEach(function (item) {
+            var itemDiv = document.getElementById('specificItemDiv');
             var itemPara = document.createElement("p");
             itemPara.classList.add('itemBox');
             itemPara.setAttribute('id', 'itemBox');
@@ -35,13 +40,8 @@ function GetAllItems() {
         console.error('Error occurred while sending the request:', error);
     });
 }
-function gotopage() {
-    var itemName = document.getElementById('itemBox');
-    var itemNameValue = itemName.textContent;
-    window.location.href = '/Home/ViewItem?itemName=' + encodeURIComponent(itemNameValue);
+var addToCartButton = document.getElementById('addtoCart');
+if (addToCartButton !== null) {
+    addToCartButton.addEventListener("click", Bomba, false);
 }
-var element = document.getElementById('itemsDiv');
-if (element !== null) {
-    element.addEventListener("click", gotopage, false);
-}
-//# sourceMappingURL=items.js.map
+//# sourceMappingURL=specificitem.js.map

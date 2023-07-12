@@ -1,6 +1,13 @@
-﻿function GetAllItems() {
-    const itemDiv = document.getElementById('itemsDiv') as HTMLDivElement;
-    const url = 'https://localhost:7004/api/Items/GetAllItems';
+﻿function Bomba() {
+    console.log('bomba');
+}
+
+function GetTheItem() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const itemName = urlParams.get('itemName');
+
+    
+    const url = 'https://localhost:7004/api/Items/GetSpecificItem' + '?itemName=' + itemName;
 
     fetch(url, {
         method: 'GET'
@@ -16,6 +23,8 @@
         })
         .then(function (data) {
             data.forEach(item => {
+                const itemDiv = document.getElementById('specificItemDiv') as HTMLDivElement;
+
                 var itemPara = document.createElement("p");
                 itemPara.classList.add('itemBox');
                 itemPara.setAttribute('id', 'itemBox');
@@ -38,22 +47,8 @@
         });
 }
 
-
-function gotopage() {
-    const itemName = document.getElementById('itemBox') as HTMLParagraphElement;
-    const itemNameValue = itemName.textContent;
-    window.location.href = '/Home/ViewItem?itemName=' + encodeURIComponent(itemNameValue);
+const addToCartButton = document.getElementById('addtoCart') as HTMLButtonElement;
+if (addToCartButton !== null) {
+    addToCartButton.addEventListener("click", Bomba, false);
 }
-const element = document.getElementById('itemsDiv');
-if (element !== null) {
-    element.addEventListener("click", gotopage, false);
-}
-
-
-
-
-
-
-
-
 
