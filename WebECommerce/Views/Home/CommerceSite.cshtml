@@ -48,20 +48,7 @@
         display: block;
     }
     .itemsDiv{
-        width:1340px;
-        height:950px;
-        text-align: center;
-        padding: 20px;
-        background-color: #081b29;
-        overflow: auto;
-        display: flex;
-        max-width: 100%;
-        border-radius: 30px 5px;
-        border-color: black;
-        border-style: solid;
-        left: 50px;
-        color:white;
-        /*margin-bottom: 20px;
+        margin-bottom: 20px;
         padding: 10px;
         border: 1px solid #ddd;
         background-color: #f9f9f9;
@@ -83,6 +70,18 @@
 <div class="itemsDiv" id="itemsDiv">
 
 </div>
+<div class="cartListDiv" id="cartListDiv">
+
+</div>
+<button onclick="loadCartListIntoCartListDiv()">
+    Show CartList
+</button>
+<button onclick="ClearCartList()">
+    Clear CartList
+</button>
+<button onclick="SendOrder()">
+    Order
+</button>
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function () {
