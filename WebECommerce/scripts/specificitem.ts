@@ -74,7 +74,69 @@ function ClearCartList() {
 }
 
 function SendOrder() {
+    const storedCartList = localStorage.getItem('cartList');
+
+    if (storedCartList) {
+        const cl: CartList = JSON.parse(storedCartList);
+        const itemCounts: { [itemName: string]: number } = {};
+        const itemTotalPrices: { [itemName: string]: number } = {};
+        let totalPrice = 0;
+
+        // Calculate item counts, total prices, and the total price of all items
+        cl.itemName.forEach((itemName, index) => {
+            if (itemCounts[itemName]) {
+                itemCounts[itemName]++;
+                itemTotalPrices[itemName] += parseFloat(cl.itemPrice[index]) * itemCounts[itemName];
+            } else {
+                itemCounts[itemName] = 1;
+                itemTotalPrices[itemName] = parseFloat(cl.itemPrice[index]);
+            }
+            totalPrice += parseFloat(cl.itemPrice[index]) * itemCounts[itemName];
+        });
+
+        // Create separate variables for itemName and itemCount
+        let itemNames = '';
+        let itemAmounts = '';
+
+        // Generate itemName and itemCount strings
+        for (const itemName in itemCounts) {
+            const itemCount = itemCounts[itemName];
+            itemNames += `${itemName},`;
+            itemAmounts += `${itemCount},`;
+        }
+
+        // Remove the trailing comma
+        itemNames = itemNames.slice(0, -1);
+        itemAmounts = itemAmounts.slice(0, -1);
+
+        console.log('Item Names:', itemNames);
+        console.log('Item Amounts:', itemAmounts);
+        console.log('Total Price:', totalPrice.toFixed(2));
+
+        // Send the itemNames, itemAmounts, and totalPrice to your API using fetch
+        const url =
+            'https://localhost:7004/api/Items/SaveCartList' +
+            `?itemNames=${encodeURIComponent(itemNames.trim())}` +
+            `&itemAmounts=${encodeURIComponent(itemAmounts.trim())}` +
+            `&totalPrice=${encodeURIComponent(totalPrice.toFixed(2)).trim()}` +
+            `&ordererName=${encodeURIComponent(userName).trim()}`;
+
+        fetch(url, {
+            method: 'POST',
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // Handle the API response if needed
+                console.log('API response:', data);
+            })
+            .catch((error) => {
+                // Handle any errors during the fetch request
+                console.error('Error:', error);
+            });
+    }
 }
+
+
 
 function AddToCart() {
     var itemNameTag = document.querySelector('.itemBox'); // Assuming the itemBox class is used for the item name element
@@ -85,7 +147,7 @@ function AddToCart() {
     cl.itemName.push(itemNames); // Add the item name to the itemName array of CartList
     cl.itemPrice.push(itemPrice); // Add the item price to the itemPrice array of CartList
 
-    var formattedItemName = cl.itemName.join(", "); // Join the item names with commas and a space
+    var formattedItemName = cl.itemName.join(","); // Join the item names with commas and a space
     var formattedItemPrice = cl.itemPrice.join(", "); // Join the item prices with commas and a space
 
     console.log(formattedItemName); // Output the formatted item names
@@ -101,7 +163,6 @@ function GetTheItem() {
     const urlParams = new URLSearchParams(window.location.search);
     const itemName = urlParams.get('itemName');
 
-    
     const url = 'https://localhost:7004/api/Items/GetSpecificItem' + '?itemName=' + itemName;
 
     fetch(url, {

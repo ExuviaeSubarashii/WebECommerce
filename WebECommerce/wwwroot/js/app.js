@@ -1,7 +1,9 @@
+var userName;
 function Login() {
     var userEmailInput = document.getElementById('EmailInput');
     var userPasswordInput = document.getElementById('userPasswordInput');
     var userEmail = userEmailInput.value;
+    userName = userEmail;
     var userPassword = userPasswordInput.value;
     var url = 'https://localhost:7004/api/Users/Login' + '?userEmail=' + userEmail + '&userPassword=' + userPassword;
     fetch(url, {
