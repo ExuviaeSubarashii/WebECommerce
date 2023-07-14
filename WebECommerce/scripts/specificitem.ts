@@ -22,7 +22,7 @@ function saveCartListToLocalStorage() {
 }
 function loadCartListIntoCartListDiv() {
     const storedCartList = localStorage.getItem('cartList');
-    const cartListDiv = document.querySelector('#cartListDiv'); // Assuming you have a div element with the id "cartListDiv"
+    const cartListDiv = document.getElementById('cartListDiv'); // Assuming you have a div element with the id "cartListDiv"
 
     if (storedCartList) {
         const cl: CartList = JSON.parse(storedCartList);
@@ -67,6 +67,7 @@ function loadCartListIntoCartListDiv() {
         const totalPriceElement = document.createElement('p');
         totalPriceElement.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
         cartListDiv.appendChild(totalPriceElement);
+
     }
 }
 function ClearCartList() {
@@ -208,4 +209,9 @@ const addToCartButton = document.getElementById('addtoCart') as HTMLButtonElemen
 if (addToCartButton !== null) {
     addToCartButton.addEventListener("click", AddToCart, false);
 }
+
+
+
+
+
 

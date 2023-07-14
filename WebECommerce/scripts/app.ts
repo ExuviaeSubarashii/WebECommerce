@@ -1,4 +1,4 @@
-﻿var userName:string;
+﻿var userName;
 function Login() {
     const userEmailInput = document.getElementById('EmailInput') as HTMLInputElement;
     const userPasswordInput = document.getElementById('userPasswordInput') as HTMLInputElement;

@@ -53,6 +53,17 @@
         border: 1px solid #ddd;
         background-color: #f9f9f9;
     }
+
+    .cartListDiv {
+        /*display: none;*/ /* Start with the div hidden */
+        width: 200px; /* Adjust the width as needed */
+        background-color: #f0f0f0; /* Set a background color for the sidebar */
+        position: fixed; /* Position the sidebar */
+        top: 0;
+        left: 0; /* Initially hidden off-screen */
+        height: 100vh; /* Set the height to fill the viewport */
+        transition: left 0.3s; /* Add a smooth transition effect */
+    }
 </style>
 
 
@@ -73,7 +84,7 @@
 <div class="cartListDiv" id="cartListDiv">
 
 </div>
-<button onclick="loadCartListIntoCartListDiv()">
+<button id="showButton" onclick="loadCartListIntoCartListDiv()">
     Show CartList
 </button>
 <button onclick="ClearCartList()">
@@ -87,6 +98,18 @@
         document.addEventListener('DOMContentLoaded', function () {
             GetAllItems();
         });
+        const showButton = document.getElementById('showButton');
+        const cartListDiv = document.getElementById('cartListDiv');
+
+        showButton.addEventListener('click', function () {
+            if (cartListDiv.style.display === 'none') {
+                cartListDiv.style.display = 'block'; // Show the div
+            } else {
+                cartListDiv.style.display = 'none'; // Hide the div
+                cartListDiv.innerHTML = ''; // Empty the div
+            }
+        });
+
     </script>
 }
 

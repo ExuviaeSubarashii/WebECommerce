@@ -17,7 +17,7 @@ function saveCartListToLocalStorage() {
 }
 function loadCartListIntoCartListDiv() {
     var storedCartList = localStorage.getItem('cartList');
-    var cartListDiv = document.querySelector('#cartListDiv'); // Assuming you have a div element with the id "cartListDiv"
+    var cartListDiv = document.getElementById('cartListDiv'); // Assuming you have a div element with the id "cartListDiv"
     if (storedCartList) {
         var cl_1 = JSON.parse(storedCartList);
         var itemCounts_1 = {}; // Object to keep track of item counts
