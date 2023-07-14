@@ -55,21 +55,22 @@
     }
 
     .cartListDiv {
-        /*display: none;*/ /* Start with the div hidden */
+        display: none; /* Start with the div hidden */
         width: 200px; /* Adjust the width as needed */
-        background-color: #f0f0f0; /* Set a background color for the sidebar */
+        background-color: black; /* Set a background color for the sidebar */
         position: fixed; /* Position the sidebar */
         top: 0;
         left: 0; /* Initially hidden off-screen */
         height: 100vh; /* Set the height to fill the viewport */
         transition: left 0.3s; /* Add a smooth transition effect */
+        color:wheat;
     }
 </style>
 
 
 <div class="userPanel">
     <div class="dropdown">
-        <button class="dropbtn">UserName</button>
+        <button id="userNameTag" class="dropbtn">UserName</button>
         <div class="dropdown-content">
             <p id="userNotif" class="userNotif">Account Details</p>
             <p id="userAccount" class="userAccount">Logout</p>
@@ -79,11 +80,9 @@
 
 
 <div class="itemsDiv" id="itemsDiv">
-
+    
 </div>
-<div class="cartListDiv" id="cartListDiv">
-
-</div>
+<div class="cartListDiv" id="cartListDiv"></div>
 <button id="showButton" onclick="loadCartListIntoCartListDiv()">
     Show CartList
 </button>

@@ -16,8 +16,9 @@ function Login() {
             if (response.ok) {
                 // Request was successful
                 //return response.text();
-                console.log("it worked")
+                console.log("it worked");
                 window.location.href = '/Home/ReturnCommerceSite';
+
             } else {
                 // Request failed
                 throw new Error(response.statusText);
