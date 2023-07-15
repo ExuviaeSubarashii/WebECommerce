@@ -1,4 +1,7 @@
 function GetAllItems() {
+    var userEmail = window.localStorage.getItem('userEmail');
+    var userNameTag = document.getElementById('userNameTag');
+    userNameTag.textContent = userEmail;
     var itemsDiv = document.querySelector('#itemsDiv');
     var url = 'https://localhost:7004/api/Items/GetAllItems';
     fetch(url, {

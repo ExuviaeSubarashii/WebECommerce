@@ -94,11 +94,12 @@ function SendOrder() {
         console.log('Item Amounts:', itemAmounts);
         console.log('Total Price:', totalPrice_2.toFixed(2));
         // Send the itemNames, itemAmounts, and totalPrice to your API using fetch
+        var userEmail = window.localStorage.getItem('userEmail');
         var url = 'https://localhost:7004/api/Items/SaveCartList' +
             "?itemNames=".concat(encodeURIComponent(itemNames.trim())) +
             "&itemAmounts=".concat(encodeURIComponent(itemAmounts.trim())) +
             "&totalPrice=".concat(encodeURIComponent(totalPrice_2.toFixed(2)).trim()) +
-            "&ordererName=".concat(encodeURIComponent(userName).trim());
+            "&ordererName=".concat(encodeURIComponent(userEmail).trim());
         fetch(url, {
             method: 'POST',
         })
