@@ -40,5 +40,9 @@ namespace WebECommerce.Controllers
         {
             return View("SpecificItem");
         }
+        public ActionResult CustomerOrders()
+        {
+            return View("CustomerOrders");
+        }
     }
 }

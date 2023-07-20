@@ -1,0 +1,155 @@
+﻿<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Body styles */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+    }
+
+    /* Order summary container */
+    .order-summary {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    /* Item container */
+    .perOrderDiv {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Item name */
+    .itemBox {
+        font-weight: bold;
+    }
+
+    /* Order date and amount styles */
+    .orderDate,
+    .itemAmount {
+        color: #666;
+        font-size: 14px;
+    }
+
+    /* Total price */
+    .totalPrice {
+        font-weight: bold;
+        font-size: 16px;
+        color: #e47911;
+    }
+
+    :root {
+        --primary-bg-color: #ffffff; /* Light mode background color */
+        --primary-text-color: #333333; /* Light mode text color */
+        --secondary-bg-color: #f0f0f0; /* Light mode secondary background color */
+        /* Add more CSS variables for other colors as needed */
+    }
+
+    /* Dark mode CSS */
+    body.dark-mode {
+        --primary-bg-color: #1a1a1a; /* Dark mode background color */
+        --primary-text-color: #ffffff; /* Dark mode text color */
+        --secondary-bg-color: #333333; /* Dark mode secondary background color */
+        /* Add more CSS variables for other colors as needed */
+    }
+
+    /* Apply CSS variables to elements */
+    body {
+        background-color: var(--primary-bg-color);
+        color: var(--primary-text-color);
+    }
+
+    .userPanel {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 9999;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropbtn {
+        background-color: #f1f1f1;
+        color: #333;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        top: 100%;
+        right: 0;
+    }
+
+        .dropdown-content p {
+            color: #333;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .dropdown-content p:hover {
+                background-color: #f1f1f1;
+            }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .itemBox{
+        color:black;
+    }
+</style>
+<body>
+    <div class="userPanel">
+        <div class="dropdown">
+            <button id="userNameTag" class="dropbtn">UserName</button>
+            <div class="dropdown-content">
+                <p id="userNotif" class="userNotif">Account Details</p>
+                <p id="myOrders" class="myOrders" onclick="GoToMyOrder()">My Orders</p>
+                <button id="toggleDarkMode">Toggle Dark Mode</button>
+                <p id="userAccount" class="userAccount" onclick="LogOut()">Logout</p>
+            </div>
+        </div>
+    </div>
+    <div id="orderDiv" class="order-summary">
+
+</div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        MyOrders();
+        const toggleDarkModeButton = document.getElementById('toggleDarkMode');
+        const prefersDarkMode = JSON.parse(localStorage.getItem('darkModePreference'));
+
+        if (prefersDarkMode) {
+            document.body.classList.add('dark-mode');
+        }
+
+        toggleDarkModeButton.addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkModePreference', JSON.stringify(isDarkMode));
+        });
+    });
+</script>

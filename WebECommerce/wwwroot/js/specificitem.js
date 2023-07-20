@@ -115,8 +115,8 @@ function SendOrder() {
     }
 }
 function AddToCart() {
-    var itemNameTag = document.querySelector('.itemBox'); // Assuming the itemBox class is used for the item name element
-    var itemPriceTag = document.querySelector('.itemPrice'); // Assuming the itemPrice class is used for the item price element
+    var itemNameTag = document.querySelector('.itemBox');
+    var itemPriceTag = document.querySelector('.itemPrice');
     var itemNames = itemNameTag.textContent;
     var itemPrice = itemPriceTag.textContent;
     cl.itemName.push(itemNames); // Add the item name to the itemName array of CartList

@@ -31,22 +31,30 @@
 
                 var itemPrice = document.createElement("p");
                 itemPrice.classList.add('itemPrice');
-                itemPrice.textContent = item.itemPrice;
-
-                var itemPriceTag = document.createElement("p");
-                itemPriceTag.classList.add('itemPriceTag');
-                itemPriceTag.textContent = item.itemPriceTag;
+                itemPrice.textContent = item.itemPrice +" "+ item.itemPriceTag;
 
                 itemDiv.appendChild(itemPara);
                 itemDiv.appendChild(itemPrice);
-                itemDiv.appendChild(itemPriceTag);
-
                 itemsDiv.appendChild(itemDiv);
             });
         })
         .catch(function (error) {
             console.error('Error occurred while sending the request:', error);
         });
+    const storedCartList = localStorage.getItem('cartList');
+    const clearcartlistbutton = document.getElementById('clearcartlistbutton') as HTMLButtonElement;
+    const showCartListButton = document.getElementById('showButton') as HTMLButtonElement;
+    const sendOrderButton = document.getElementById('sendOrderButton') as HTMLButtonElement;
+    if (storedCartList.length > 0) {
+        clearcartlistbutton.disabled = false;
+        showCartListButton.disabled = false;
+        sendOrderButton.disabled = false;
+    }
+    else {
+        clearcartlistbutton.disabled = true;
+        showCartListButton.disabled = true;
+        sendOrderButton.disabled = true;
+    }
 }
 
 
@@ -60,6 +68,7 @@ const element = document.getElementById('itemsDiv');
 if (element !== null) {
     element.addEventListener("click", gotopage, false);
 }
+
 
 
 

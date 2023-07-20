@@ -65,37 +65,101 @@
         transition: left 0.3s; /* Add a smooth transition effect */
         color:wheat;
     }
+    .itemDiv{
+        width:150px;
+        text-align: center;
+        padding: 20px;
+        background-color: #081b29;
+        overflow: auto;
+        display: flex;
+        flex-direction: column-reverse;
+        max-width: 100%;
+        border-radius: 30px 5px;
+        border-color: black;
+        border-style: solid;
+        left: 50px;
+        color:white;
+    }
+
+    .buyoutButtons{
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+        padding: 10px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+    }
+
+    :root {
+        --primary-bg-color: #ffffff; /* Light mode background color */
+        --primary-text-color: #333333; /* Light mode text color */
+        --secondary-bg-color: #f0f0f0; /* Light mode secondary background color */
+        /* Add more CSS variables for other colors as needed */
+    }
+
+    /* Dark mode CSS */
+    body.dark-mode {
+        --primary-bg-color: #1a1a1a; /* Dark mode background color */
+        --primary-text-color: #ffffff; /* Dark mode text color */
+        --secondary-bg-color: #333333; /* Dark mode secondary background color */
+        /* Add more CSS variables for other colors as needed */
+    }
+
+    /* Apply CSS variables to elements */
+    body {
+        background-color: var(--primary-bg-color);
+        color: var(--primary-text-color);
+    }
 </style>
 
-
-<div class="userPanel">
-    <div class="dropdown">
-        <button id="userNameTag" class="dropbtn">UserName</button>
-        <div class="dropdown-content">
-            <p id="userNotif" class="userNotif">Account Details</p>
-            <p id="userAccount" class="userAccount">Logout</p>
+<body>
+    <div class="userPanel">
+        <div class="dropdown">
+            <button id="userNameTag" class="dropbtn">UserName</button>
+            <div class="dropdown-content">
+                <p id="userNotif" class="userNotif">Account Details</p>
+                <p id="myOrders" class="myOrders" onclick="GoToMyOrder()">My Orders</p>
+                <button id="toggleDarkMode">Toggle Dark Mode</button>
+                <p id="userAccount" class="userAccount" onclick="LogOut()">Logout</p>
+            </div>
         </div>
     </div>
-</div>
-
-
 <div class="itemsDiv" id="itemsDiv">
     
 </div>
-<div class="cartListDiv" id="cartListDiv"></div>
-<button id="showButton" onclick="loadCartListIntoCartListDiv()">
+<div class="cartListDiv" id="cartListDiv">
+
+</div>
+<button id="showButton" class="buyoutButtons" onclick="loadCartListIntoCartListDiv()">
     Show CartList
 </button>
-<button onclick="ClearCartList()">
+<button id="clearcartlistbutton" class="buyoutButtons" onclick="ClearCartList()">
     Clear CartList
 </button>
-<button onclick="SendOrder()">
+<button class="buyoutButtons" style="color:black;background-color:yellow" id="sendOrderButton" onclick="SendOrder()">
     Order
 </button>
+</body>
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             GetAllItems();
+            const toggleDarkModeButton = document.getElementById('toggleDarkMode');
+            const prefersDarkMode = JSON.parse(localStorage.getItem('darkModePreference'));
+
+            if (prefersDarkMode) {
+                document.body.classList.add('dark-mode');
+            }
+
+            toggleDarkModeButton.addEventListener('click', function () {
+                document.body.classList.toggle('dark-mode');
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                localStorage.setItem('darkModePreference', JSON.stringify(isDarkMode));
+            });
         });
         const showButton = document.getElementById('showButton');
         const cartListDiv = document.getElementById('cartListDiv');
@@ -108,7 +172,7 @@
                 cartListDiv.innerHTML = ''; // Empty the div
             }
         });
-
+       
     </script>
 }
 

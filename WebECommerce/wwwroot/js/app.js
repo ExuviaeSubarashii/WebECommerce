@@ -27,4 +27,7 @@ function Login() {
         console.error('Error occurred while sending the request:', error);
     });
 }
+function LogOut() {
+    window.location.href = '/Home/Index';
+}
 //# sourceMappingURL=app.js.map
