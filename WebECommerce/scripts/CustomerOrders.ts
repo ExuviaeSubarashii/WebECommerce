@@ -2,8 +2,10 @@
     window.location.href = '/Home/CustomerOrders'
 }
 function MyOrders() {
-    const orderDiv = document.getElementById('orderDiv');
     const userEmail = window.localStorage.getItem('userEmail');
+    var userNameTag = document.getElementById('userNameTag');
+    userNameTag.textContent = userEmail;
+    const orderDiv = document.getElementById('orderDiv');
     const url = 'https://localhost:7004/api/Items/GetMyOrders' + '?userName=' + userEmail;
 
     fetch(url, {

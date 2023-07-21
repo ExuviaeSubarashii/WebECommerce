@@ -33,8 +33,12 @@
                 itemPrice.classList.add('itemPrice');
                 itemPrice.textContent = item.itemPrice +" "+ item.itemPriceTag;
 
+                
+
                 itemDiv.appendChild(itemPara);
                 itemDiv.appendChild(itemPrice);
+                
+
                 itemsDiv.appendChild(itemDiv);
             });
         })

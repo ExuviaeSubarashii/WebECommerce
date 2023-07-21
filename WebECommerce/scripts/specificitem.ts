@@ -21,36 +21,27 @@ function saveCartListToLocalStorage() {
     localStorage.setItem('cartList', JSON.stringify(cl));
 }
 function loadCartListIntoCartListDiv() {
+    const userEmail = window.localStorage.getItem('userEmail');
+    var userNameTag = document.getElementById('userNameTag');
+    userNameTag.textContent = userEmail;
     const storedCartList = localStorage.getItem('cartList');
-    const cartListDiv = document.getElementById('cartListDiv'); // Assuming you have a div element with the id "cartListDiv"
+    const cartListDiv = document.getElementById('cartListDiv');
 
     if (storedCartList) {
-        const cl: CartList = JSON.parse(storedCartList);
-        const itemCounts: { [itemName: string]: number } = {}; // Object to keep track of item counts
-        const itemPrices: { [itemName: string]: number } = {}; // Object to keep track of item prices
-        let totalPrice = 0; // Variable to store the total price
+        const cl = JSON.parse(storedCartList);
+        const itemCounts = {};
+        const itemPrices = {};
+        let totalPrice = 0;
 
-        // Calculate item counts, total prices, and the total price of all items
         cl.itemName.forEach((itemName, index) => {
-            if (itemCounts[itemName]) {
-                itemCounts[itemName]++;
-                itemPrices[itemName] += parseFloat(cl.itemPrice[index]);
-            } else {
-                itemCounts[itemName] = 1;
-                itemPrices[itemName] = parseFloat(cl.itemPrice[index]);
-            }
+            itemCounts[itemName] = (itemCounts[itemName] || 0) + 1;
+            itemPrices[itemName] = (itemPrices[itemName] || 0) + parseFloat(cl.itemPrice[index]);
             totalPrice += parseFloat(cl.itemPrice[index]);
         });
 
-        // Render the items with their counts and total prices
-        for (let i = 0; i < cl.itemName.length; i++) {
-            const itemName = cl.itemName[i];
+        cartListDiv.innerHTML = '';
 
-            // Skip rendering if the item has already been rendered
-            if (i !== cl.itemName.indexOf(itemName)) {
-                continue;
-            }
-
+        Object.keys(itemCounts).forEach((itemName) => {
             const itemContainer = document.createElement('div');
             const itemInfoElement = document.createElement('p');
 
@@ -58,18 +49,16 @@ function loadCartListIntoCartListDiv() {
             const totalPriceForItem = itemPrices[itemName];
 
             itemInfoElement.textContent = `${itemName} (${itemCount}) - $${totalPriceForItem.toFixed(2)}`;
-
             itemContainer.appendChild(itemInfoElement);
             cartListDiv.appendChild(itemContainer);
-        }
+        });
 
-        // Render the total price of all items
         const totalPriceElement = document.createElement('p');
         totalPriceElement.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
         cartListDiv.appendChild(totalPriceElement);
-
     }
 }
+
 function ClearCartList() {
     localStorage.removeItem('cartList');
 }
@@ -164,7 +153,7 @@ loadCartListFromLocalStorage(); // Load the CartList from localStorage when the 
 function GetTheItem() {
     const urlParams = new URLSearchParams(window.location.search);
     const itemName = urlParams.get('itemName');
-
+    const addtoCartButton = document.getElementById('addtoCart') as HTMLButtonElement;
     const url = 'https://localhost:7004/api/Items/GetSpecificItem' + '?itemName=' + itemName;
 
     fetch(url, {
@@ -187,18 +176,26 @@ function GetTheItem() {
                 itemPara.classList.add('itemBox');
                 itemPara.setAttribute('id', 'itemBox');
                 itemPara.textContent = item.itemName;
-                itemDiv.appendChild(itemPara);
 
                 var itemPrice = document.createElement("p");
                 itemPrice.classList.add('itemPrice');
                 itemPrice.setAttribute('id', 'itemPrice');
-                itemPrice.textContent = item.itemPrice;
-                itemDiv.appendChild(itemPrice);
+                itemPrice.textContent = item.itemPrice + " " + item.itemPriceTag;
 
-                var itemPriceTag = document.createElement("p");
-                itemPriceTag.classList.add('itemPriceTag');
-                itemPriceTag.textContent = item.itemPriceTag;
-                itemDiv.appendChild(itemPriceTag);
+
+                var itemStock = document.createElement("p");
+                itemStock.classList.add('itemStock');
+                itemStock.setAttribute('id', 'itemStock');
+                itemStock.textContent = "Current Stock: "+item.itemStock;
+
+                itemDiv.appendChild(itemPara);
+                itemDiv.appendChild(itemPrice);
+                itemDiv.appendChild(itemStock);
+                if (item.itemStock === 0) {
+                    addtoCartButton.disabled = true;
+                } else {
+                    addtoCartButton.disabled = false;
+                }
             });
         })
         .catch(function (error) {

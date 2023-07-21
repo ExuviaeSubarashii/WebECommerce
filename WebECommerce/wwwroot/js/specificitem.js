@@ -16,32 +16,23 @@ function saveCartListToLocalStorage() {
     localStorage.setItem('cartList', JSON.stringify(cl));
 }
 function loadCartListIntoCartListDiv() {
+    var userEmail = window.localStorage.getItem('userEmail');
+    var userNameTag = document.getElementById('userNameTag');
+    userNameTag.textContent = userEmail;
     var storedCartList = localStorage.getItem('cartList');
-    var cartListDiv = document.getElementById('cartListDiv'); // Assuming you have a div element with the id "cartListDiv"
+    var cartListDiv = document.getElementById('cartListDiv');
     if (storedCartList) {
         var cl_1 = JSON.parse(storedCartList);
-        var itemCounts_1 = {}; // Object to keep track of item counts
-        var itemPrices_1 = {}; // Object to keep track of item prices
-        var totalPrice_1 = 0; // Variable to store the total price
-        // Calculate item counts, total prices, and the total price of all items
+        var itemCounts_1 = {};
+        var itemPrices_1 = {};
+        var totalPrice_1 = 0;
         cl_1.itemName.forEach(function (itemName, index) {
-            if (itemCounts_1[itemName]) {
-                itemCounts_1[itemName]++;
-                itemPrices_1[itemName] += parseFloat(cl_1.itemPrice[index]);
-            }
-            else {
-                itemCounts_1[itemName] = 1;
-                itemPrices_1[itemName] = parseFloat(cl_1.itemPrice[index]);
-            }
+            itemCounts_1[itemName] = (itemCounts_1[itemName] || 0) + 1;
+            itemPrices_1[itemName] = (itemPrices_1[itemName] || 0) + parseFloat(cl_1.itemPrice[index]);
             totalPrice_1 += parseFloat(cl_1.itemPrice[index]);
         });
-        // Render the items with their counts and total prices
-        for (var i = 0; i < cl_1.itemName.length; i++) {
-            var itemName = cl_1.itemName[i];
-            // Skip rendering if the item has already been rendered
-            if (i !== cl_1.itemName.indexOf(itemName)) {
-                continue;
-            }
+        cartListDiv.innerHTML = '';
+        Object.keys(itemCounts_1).forEach(function (itemName) {
             var itemContainer = document.createElement('div');
             var itemInfoElement = document.createElement('p');
             var itemCount = itemCounts_1[itemName];
@@ -49,8 +40,7 @@ function loadCartListIntoCartListDiv() {
             itemInfoElement.textContent = "".concat(itemName, " (").concat(itemCount, ") - $").concat(totalPriceForItem.toFixed(2));
             itemContainer.appendChild(itemInfoElement);
             cartListDiv.appendChild(itemContainer);
-        }
-        // Render the total price of all items
+        });
         var totalPriceElement = document.createElement('p');
         totalPriceElement.textContent = "Total Price: $".concat(totalPrice_1.toFixed(2));
         cartListDiv.appendChild(totalPriceElement);
@@ -131,6 +121,7 @@ loadCartListFromLocalStorage(); // Load the CartList from localStorage when the 
 function GetTheItem() {
     var urlParams = new URLSearchParams(window.location.search);
     var itemName = urlParams.get('itemName');
+    var addtoCartButton = document.getElementById('addtoCart');
     var url = 'https://localhost:7004/api/Items/GetSpecificItem' + '?itemName=' + itemName;
     fetch(url, {
         method: 'GET'
@@ -152,16 +143,23 @@ function GetTheItem() {
             itemPara.classList.add('itemBox');
             itemPara.setAttribute('id', 'itemBox');
             itemPara.textContent = item.itemName;
-            itemDiv.appendChild(itemPara);
             var itemPrice = document.createElement("p");
             itemPrice.classList.add('itemPrice');
             itemPrice.setAttribute('id', 'itemPrice');
-            itemPrice.textContent = item.itemPrice;
+            itemPrice.textContent = item.itemPrice + " " + item.itemPriceTag;
+            var itemStock = document.createElement("p");
+            itemStock.classList.add('itemStock');
+            itemStock.setAttribute('id', 'itemStock');
+            itemStock.textContent = "Current Stock: " + item.itemStock;
+            itemDiv.appendChild(itemPara);
             itemDiv.appendChild(itemPrice);
-            var itemPriceTag = document.createElement("p");
-            itemPriceTag.classList.add('itemPriceTag');
-            itemPriceTag.textContent = item.itemPriceTag;
-            itemDiv.appendChild(itemPriceTag);
+            itemDiv.appendChild(itemStock);
+            if (item.itemStock === 0) {
+                addtoCartButton.disabled = true;
+            }
+            else {
+                addtoCartButton.disabled = false;
+            }
         });
     })
         .catch(function (error) {
