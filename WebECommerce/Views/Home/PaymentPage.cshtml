@@ -47,52 +47,6 @@
     .dropdown:hover .dropdown-content {
         display: block;
     }
-    .itemsDiv{
-        margin-bottom: 20px;
-        padding: 10px;
-        border: 1px solid #ddd;
-        background-color: #f9f9f9;
-    }
-
-    .cartListDiv {
-        display: none; /* Start with the div hidden */
-        width: 200px; /* Adjust the width as needed */
-        background-color: black; /* Set a background color for the sidebar */
-        position: fixed; /* Position the sidebar */
-        top: 0;
-        left: 0; /* Initially hidden off-screen */
-        height: 100vh; /* Set the height to fill the viewport */
-        transition: left 0.3s; /* Add a smooth transition effect */
-        color:wheat;
-    }
-    .itemDiv{
-        width:150px;
-        text-align: center;
-        padding: 20px;
-        background-color: #081b29;
-        overflow: auto;
-        display: flex;
-        flex-direction: column-reverse;
-        max-width: 100%;
-        border-radius: 30px 5px;
-        border-color: black;
-        border-style: solid;
-        left: 50px;
-        color:white;
-    }
-
-    .buyoutButtons{
-
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-align: center;
-        padding: 10px;
-        background-color: #3498db;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-    }
 
     :root {
         --primary-bg-color: #ffffff; /* Light mode background color */
@@ -114,9 +68,84 @@
         background-color: var(--primary-bg-color);
         color: var(--primary-text-color);
     }
-</style>
 
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Styles for the product information container */
+    .productInformation {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: black;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+        /* Styles for the individual item container */
+        .productInformation div {
+            padding: 5px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        /* Styles for the item information */
+        .productInformation p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+            /* Styles for the total price */
+            .productInformation p.totalPrice {
+                font-weight: bold;
+            }
+
+    /* Styles for the payment form container */
+    .paymentForm {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+        /* Styles for the input fields */
+        .paymentForm input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Styles for the button */
+        .paymentForm button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: mediumpurple;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .paymentForm button:hover {
+                background-color: #9c27b0;
+            }
+</style>
 <body>
+
     <div class="userPanel">
         <div class="dropdown">
             <button id="userNameTag" class="dropbtn">UserName</button>
@@ -128,27 +157,21 @@
             </div>
         </div>
     </div>
-<div class="itemsDiv" id="itemsDiv">
-    
-</div>
-<div class="cartListDiv" id="cartListDiv">
+    <div id="productInformation" class="productInformation">
+    </div>
+    <div class="paymentForm" id="paymentForm">
+        <input type="text" maxlength="16" placeholder="Credit Card Number" id="cardNumber" />
+        <input type="text" maxlength="4" placeholder="Expiration Date MM/YY" id="expirationDate" />
+        <input type="text" maxlength="3" placeholder="CVV Code" id="cvvCode" />
+        <input type="text" maxlength="5" placeholder="Postal Code" id="postalCode" />
+        <button type="submit" id="sendOrderButton" onclick="SendOrder()">Send Payment</button>
+    </div>
 
-</div>
-<button id="showButton" class="buyoutButtons" onclick="loadCartListIntoCartListDiv()">
-    Show CartList
-</button>
-<button id="clearcartlistbutton" class="buyoutButtons" onclick="ClearCartList()">
-    Clear CartList
-</button>
-    <button class="buyoutButtons" style="color:black;background-color:yellow" id="sendOrderButton" onclick="GoToPaymentPage()">
-    Order
-</button>
 </body>
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            GetAllItems();
-            
+            loadCartListIntoPaymentDiv();
             const toggleDarkModeButton = document.getElementById('toggleDarkMode');
             const prefersDarkMode = JSON.parse(localStorage.getItem('darkModePreference'));
 
@@ -162,20 +185,7 @@
                 localStorage.setItem('darkModePreference', JSON.stringify(isDarkMode));
             });
         });
-        const showButton = document.getElementById('showButton');
-        const cartListDiv = document.getElementById('cartListDiv');
-
-        showButton.addEventListener('click', function () {
-            if (cartListDiv.style.display === 'none') {
-                cartListDiv.style.display = 'block'; // Show the div
-            } else {
-                cartListDiv.style.display = 'none'; // Hide the div
-                cartListDiv.innerHTML = ''; // Empty the div
-            }
-        });
        
+
     </script>
 }
-
-
-

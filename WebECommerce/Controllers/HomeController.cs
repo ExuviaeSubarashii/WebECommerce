@@ -44,5 +44,9 @@ namespace WebECommerce.Controllers
         {
             return View("CustomerOrders");
         }
+        public ActionResult PaymentPage()
+        {
+            return View("PaymentPage");
+        }
     }
 }

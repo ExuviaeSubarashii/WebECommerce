@@ -83,19 +83,34 @@ function SendOrder() {
         console.log('Item Names:', itemNames);
         console.log('Item Amounts:', itemAmounts);
         console.log('Total Price:', totalPrice_2.toFixed(2));
-        // Send the itemNames, itemAmounts, and totalPrice to your API using fetch
+        // Send the itemNames, itemAmounts, and totalPrice securely to your API using fetch
+        var cardNumber = document.getElementById('cardNumber');
+        var expirationDate = document.getElementById('expirationDate');
+        var securityCode = document.getElementById('cvvCode');
+        var postalCode = document.getElementById('postalCode');
         var userEmail = window.localStorage.getItem('userEmail');
-        var url = 'https://localhost:7004/api/Items/SaveCartList' +
-            "?itemNames=".concat(encodeURIComponent(itemNames.trim())) +
-            "&itemAmounts=".concat(encodeURIComponent(itemAmounts.trim())) +
-            "&totalPrice=".concat(encodeURIComponent(totalPrice_2.toFixed(2)).trim()) +
-            "&ordererName=".concat(encodeURIComponent(userEmail).trim());
+        var orderData = {
+            itemNames: itemNames,
+            itemAmounts: itemAmounts,
+            totalPrice: totalPrice_2,
+            ordererName: userEmail,
+            cardNumber: cardNumber.value,
+            expirationDate: expirationDate.value,
+            securityCode: securityCode.value,
+            postalCode: postalCode.value,
+        };
+        var url = 'https://localhost:7004/api/Items/SaveCartList';
         fetch(url, {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', // Set the content type to JSON
+            },
+            body: JSON.stringify(orderData), // Send the orderData as JSON in the request body
         })
             .then(function (response) { return response.json(); })
             .then(function (data) {
             // Handle the API response if needed
+            ClearCartList();
             console.log('API response:', data);
         })
             .catch(function (error) {

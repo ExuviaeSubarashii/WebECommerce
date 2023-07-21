@@ -63,6 +63,17 @@ function ClearCartList() {
     localStorage.removeItem('cartList');
 }
 
+interface OrderData {
+    itemNames: string;
+    itemAmounts: string;
+    totalPrice: number;
+    ordererName: string;
+    cardNumber: string;
+    expirationDate: string;
+    securityCode: string;
+    postalCode: string;
+}
+
 function SendOrder() {
     const storedCartList = localStorage.getItem('cartList');
 
@@ -103,21 +114,37 @@ function SendOrder() {
         console.log('Item Amounts:', itemAmounts);
         console.log('Total Price:', totalPrice.toFixed(2));
 
-        // Send the itemNames, itemAmounts, and totalPrice to your API using fetch
+        // Send the itemNames, itemAmounts, and totalPrice securely to your API using fetch
+        const cardNumber = document.getElementById('cardNumber') as HTMLInputElement;
+        const expirationDate = document.getElementById('expirationDate') as HTMLInputElement;
+        const securityCode = document.getElementById('cvvCode') as HTMLInputElement;
+        const postalCode = document.getElementById('postalCode') as HTMLInputElement;
         const userEmail = window.localStorage.getItem('userEmail');
-        const url =
-            'https://localhost:7004/api/Items/SaveCartList' +
-            `?itemNames=${encodeURIComponent(itemNames.trim())}` +
-            `&itemAmounts=${encodeURIComponent(itemAmounts.trim())}` +
-            `&totalPrice=${encodeURIComponent(totalPrice.toFixed(2)).trim()}` +
-            `&ordererName=${encodeURIComponent(userEmail).trim()}`;
+
+        const orderData: OrderData = {
+            itemNames: itemNames,
+            itemAmounts: itemAmounts,
+            totalPrice: totalPrice,
+            ordererName: userEmail,
+            cardNumber: cardNumber.value,
+            expirationDate: expirationDate.value,
+            securityCode: securityCode.value,
+            postalCode: postalCode.value,
+        };
+
+        const url = 'https://localhost:7004/api/Items/SaveCartList';
 
         fetch(url, {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', // Set the content type to JSON
+            },
+            body: JSON.stringify(orderData), // Send the orderData as JSON in the request body
         })
             .then((response) => response.json())
             .then((data) => {
                 // Handle the API response if needed
+                ClearCartList();
                 console.log('API response:', data);
             })
             .catch((error) => {
@@ -126,6 +153,7 @@ function SendOrder() {
             });
     }
 }
+
 
 
 
