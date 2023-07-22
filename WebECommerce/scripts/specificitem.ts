@@ -45,11 +45,17 @@ function loadCartListIntoCartListDiv() {
             const itemContainer = document.createElement('div');
             const itemInfoElement = document.createElement('p');
 
+            const itemImage = document.createElement("img");
+            itemImage.classList.add('cartitemImage');
+            itemImage.setAttribute('id', 'cartitemImage');
+            itemImage.src = "/images/" + itemName.trim() + ".png";
+
             const itemCount = itemCounts[itemName];
             const totalPriceForItem = itemPrices[itemName];
 
             itemInfoElement.textContent = `${itemName} (${itemCount}) - $${totalPriceForItem.toFixed(2)}`;
             itemContainer.appendChild(itemInfoElement);
+            itemContainer.appendChild(itemImage);
             cartListDiv.appendChild(itemContainer);
         });
 
@@ -200,18 +206,22 @@ function GetTheItem() {
             data.forEach(item => {
                 const itemDiv = document.getElementById('specificItemDiv') as HTMLDivElement;
 
-                var itemPara = document.createElement("p");
+                const itemPara = document.createElement("p");
                 itemPara.classList.add('itemBox');
                 itemPara.setAttribute('id', 'itemBox');
                 itemPara.textContent = item.itemName;
 
-                var itemPrice = document.createElement("p");
+                const itemPrice = document.createElement("p");
                 itemPrice.classList.add('itemPrice');
                 itemPrice.setAttribute('id', 'itemPrice');
                 itemPrice.textContent = item.itemPrice + " " + item.itemPriceTag;
 
+                const itemImage = document.createElement("img");
+                itemImage.classList.add('itemImage');
+                itemImage.setAttribute('id', 'itemImage');
+                itemImage.src = "/images/" + item.itemImage;
 
-                var itemStock = document.createElement("p");
+                const itemStock = document.createElement("p");
                 itemStock.classList.add('itemStock');
                 itemStock.setAttribute('id', 'itemStock');
                 itemStock.textContent = "Current Stock: "+item.itemStock;
@@ -219,6 +229,7 @@ function GetTheItem() {
                 itemDiv.appendChild(itemPara);
                 itemDiv.appendChild(itemPrice);
                 itemDiv.appendChild(itemStock);
+                itemDiv.appendChild(itemImage);
                 if (item.itemStock === 0) {
                     addtoCartButton.disabled = true;
                 } else {

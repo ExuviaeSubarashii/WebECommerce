@@ -24,6 +24,11 @@
                 itemDiv.classList.add('itemDiv');
                 itemDiv.setAttribute('id', 'itemDiv');
 
+                var itemImage = document.createElement("img");
+                itemImage.classList.add('itemImage');
+                itemImage.setAttribute('id', 'itemImage');
+                itemImage.src = "/images/" + item.itemImage;
+
                 var itemPara = document.createElement("p");
                 itemPara.classList.add('itemBox');
                 itemPara.setAttribute('id', 'itemBox');
@@ -33,10 +38,9 @@
                 itemPrice.classList.add('itemPrice');
                 itemPrice.textContent = item.itemPrice +" "+ item.itemPriceTag;
 
-                
-
                 itemDiv.appendChild(itemPara);
                 itemDiv.appendChild(itemPrice);
+                itemDiv.appendChild(itemImage);
                 
 
                 itemsDiv.appendChild(itemDiv);

@@ -35,10 +35,15 @@ function loadCartListIntoCartListDiv() {
         Object.keys(itemCounts_1).forEach(function (itemName) {
             var itemContainer = document.createElement('div');
             var itemInfoElement = document.createElement('p');
+            var itemImage = document.createElement("img");
+            itemImage.classList.add('cartitemImage');
+            itemImage.setAttribute('id', 'cartitemImage');
+            itemImage.src = "/images/" + itemName.trim() + ".png";
             var itemCount = itemCounts_1[itemName];
             var totalPriceForItem = itemPrices_1[itemName];
             itemInfoElement.textContent = "".concat(itemName, " (").concat(itemCount, ") - $").concat(totalPriceForItem.toFixed(2));
             itemContainer.appendChild(itemInfoElement);
+            itemContainer.appendChild(itemImage);
             cartListDiv.appendChild(itemContainer);
         });
         var totalPriceElement = document.createElement('p');
@@ -162,6 +167,10 @@ function GetTheItem() {
             itemPrice.classList.add('itemPrice');
             itemPrice.setAttribute('id', 'itemPrice');
             itemPrice.textContent = item.itemPrice + " " + item.itemPriceTag;
+            var itemImage = document.createElement("img");
+            itemImage.classList.add('itemImage');
+            itemImage.setAttribute('id', 'itemImage');
+            itemImage.src = "/images/" + item.itemImage;
             var itemStock = document.createElement("p");
             itemStock.classList.add('itemStock');
             itemStock.setAttribute('id', 'itemStock');
@@ -169,6 +178,7 @@ function GetTheItem() {
             itemDiv.appendChild(itemPara);
             itemDiv.appendChild(itemPrice);
             itemDiv.appendChild(itemStock);
+            itemDiv.appendChild(itemImage);
             if (item.itemStock === 0) {
                 addtoCartButton.disabled = true;
             }

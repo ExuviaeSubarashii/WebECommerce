@@ -47,7 +47,8 @@
     .dropdown:hover .dropdown-content {
         display: block;
     }
-    .itemsDiv{
+
+    .itemsDiv {
         margin-bottom: 20px;
         padding: 10px;
         border: 1px solid #ddd;
@@ -55,18 +56,19 @@
     }
 
     .cartListDiv {
-        display: none; /* Start with the div hidden */
-        width: 200px; /* Adjust the width as needed */
-        background-color: black; /* Set a background color for the sidebar */
-        position: fixed; /* Position the sidebar */
+        display: none;
+        width: 200px;
+        background-color: black;
+        position: fixed;
         top: 0;
-        left: 0; /* Initially hidden off-screen */
-        height: 100vh; /* Set the height to fill the viewport */
-        transition: left 0.3s; /* Add a smooth transition effect */
-        color:wheat;
+        left: 0;
+        height: 100vh;
+        transition: left 0.3s;
+        color: wheat;
     }
-    .itemDiv{
-        width:150px;
+
+    .itemDiv {
+        width: 150px;
         text-align: center;
         padding: 20px;
         background-color: #081b29;
@@ -78,11 +80,10 @@
         border-color: black;
         border-style: solid;
         left: 50px;
-        color:white;
+        color: white;
     }
 
-    .buyoutButtons{
-
+    .buyoutButtons {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -95,24 +96,27 @@
     }
 
     :root {
-        --primary-bg-color: #ffffff; /* Light mode background color */
-        --primary-text-color: #333333; /* Light mode text color */
-        --secondary-bg-color: #f0f0f0; /* Light mode secondary background color */
-        /* Add more CSS variables for other colors as needed */
+        --primary-bg-color: #ffffff;
+        --primary-text-color: #333333;
+        --secondary-bg-color: #f0f0f0;
     }
 
-    /* Dark mode CSS */
+
     body.dark-mode {
-        --primary-bg-color: #1a1a1a; /* Dark mode background color */
-        --primary-text-color: #ffffff; /* Dark mode text color */
-        --secondary-bg-color: #333333; /* Dark mode secondary background color */
-        /* Add more CSS variables for other colors as needed */
+        --primary-bg-color: #1a1a1a;
+        --primary-text-color: #ffffff;
+        --secondary-bg-color: #333333;
     }
 
-    /* Apply CSS variables to elements */
+
     body {
         background-color: var(--primary-bg-color);
         color: var(--primary-text-color);
+    }
+
+    .cartitemImage {
+        width: 50px;
+        height: 50px;
     }
 </style>
 
@@ -128,27 +132,25 @@
             </div>
         </div>
     </div>
-<div class="itemsDiv" id="itemsDiv">
-    
-</div>
-<div class="cartListDiv" id="cartListDiv">
-
-</div>
-<button id="showButton" class="buyoutButtons" onclick="loadCartListIntoCartListDiv()">
-    Show CartList
-</button>
-<button id="clearcartlistbutton" class="buyoutButtons" onclick="ClearCartList()">
-    Clear CartList
-</button>
+    <div class="itemsDiv" id="itemsDiv">
+    </div>
+    <div class="cartListDiv" id="cartListDiv">
+    </div>
+    <button id="showButton" class="buyoutButtons" onclick="loadCartListIntoCartListDiv()">
+        Show CartList
+    </button>
+    <button id="clearcartlistbutton" class="buyoutButtons" onclick="ClearCartList()">
+        Clear CartList
+    </button>
     <button class="buyoutButtons" style="color:black;background-color:yellow" id="sendOrderButton" onclick="GoToPaymentPage()">
-    Order
-</button>
+        Order
+    </button>
 </body>
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             GetAllItems();
-            
+
             const toggleDarkModeButton = document.getElementById('toggleDarkMode');
             const prefersDarkMode = JSON.parse(localStorage.getItem('darkModePreference'));
 
@@ -173,7 +175,7 @@
                 cartListDiv.innerHTML = ''; // Empty the div
             }
         });
-       
+
     </script>
 }
 
