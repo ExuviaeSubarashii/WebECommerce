@@ -29,5 +29,6 @@ function Login() {
 }
 function LogOut() {
     window.location.href = '/Home/Index';
+    localStorage.clear();
 }
 //# sourceMappingURL=app.js.map
