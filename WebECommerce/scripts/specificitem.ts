@@ -248,10 +248,9 @@ if (addToCartButton !== null) {
 }
 
 const searchBar = document.getElementById('searchBar') as HTMLInputElement;
+if (searchBar) {
+
 searchBar.addEventListener("input", (event) => {
-    /*if (event.key==='Enter') {*/
-
-
     var userInput = searchBar.value;
     const itemsDiv = document.querySelector('#itemsDiv');
     const url = 'https://localhost:7004/api/Items/GetSpecificItem' + '?itemName=' + userInput;
@@ -299,14 +298,13 @@ searchBar.addEventListener("input", (event) => {
             }
             else {
                 itemsDiv.innerHTML = '';
-                /*window.alert("no item found");*/
             }
         })
         .catch(function (error) {
             console.error('Error occurred while sending the request:', error);
         });
-    /*}*/
 });
+}
 
 
 

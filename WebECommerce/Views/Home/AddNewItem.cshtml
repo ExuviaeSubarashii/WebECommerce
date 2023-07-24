@@ -1,0 +1,21 @@
+﻿<body>
+    <div class="newItemPanel">
+
+        <input class="itemName" id="itemName" />
+        <input class="itemPrice" id="itemPrice"/>
+        <input class="itemStock" id="itemStock" />
+        <input type="file" class="imageInput" id="imageInput"/>
+        <button type="submit" class="sendItems" id="sendItems" onclick="AddNewItem()"></button>
+    </div>
+
+    <div class="myitemlist" id="myitemlist">
+
+    </div>
+</body>
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+            GetMyListings();
+        });
+    </script>
+}

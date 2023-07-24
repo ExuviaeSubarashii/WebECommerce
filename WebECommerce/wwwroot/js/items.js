@@ -66,4 +66,88 @@ var element = document.getElementById('itemsDiv');
 if (element !== null) {
     element.addEventListener("click", gotopage, false);
 }
+function AddNewItem() {
+    var myitemlist = document.getElementById('myitemlist');
+    var userEmail = window.localStorage.getItem('userEmail');
+    var itemName = document.querySelector('itemName');
+    var itemPrice = document.querySelector('itemPrice');
+    var itemStock = document.querySelector('itemStock');
+    var itemImage = document.querySelector('imageInput');
+    var newItemData = {
+        itemName: itemName.value,
+        itemPrice: itemPrice.value,
+        itemStock: parseInt(itemStock.value),
+        itemImage: itemImage.value,
+        userName: userEmail
+    };
+    var url = 'https://localhost:7004/api/Items/AddNewItem';
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newItemData),
+    })
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+        data.forEach(function (item) {
+            var userItemList = document.createElement('div');
+            userItemList.classList.add('userItemList');
+            userItemList.setAttribute('id', 'userItemList');
+            var userItemName = document.createElement('p');
+            userItemName.classList.add('userItemName');
+            userItemName.textContent = "Product Name: " + item.itemName;
+            var itemPrice = document.createElement('p');
+            itemPrice.classList.add('itemPrice');
+            itemPrice.textContent = "Price Tag: " + item.itemPrice + item.itemPriceTag;
+            var userItemStock = document.createElement('p');
+            userItemStock.classList.add('userItemStock');
+            userItemStock.textContent = "Stock: " + item.itemStock;
+            var itemImage = document.createElement("img");
+            itemImage.classList.add('itemImage');
+            itemImage.setAttribute('id', 'itemImage');
+            itemImage.src = "/images/" + item.itemImage;
+        });
+    });
+}
+function GetMyListings() {
+    var userEmail = window.localStorage.getItem('userEmail');
+    var myitemlist = document.getElementById('myitemlist');
+    var url = 'https://localhost:7004/api/Items/GetMyListings' + '?userName=' + userEmail;
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+        data.forEach(function (item) {
+            var userItemList = document.createElement('div');
+            userItemList.classList.add('userItemList');
+            userItemList.setAttribute('id', 'userItemList');
+            var userItemName = document.createElement('p');
+            userItemName.classList.add('userItemName');
+            userItemName.textContent = "Product Name: " + item.itemName;
+            var itemPrice = document.createElement('p');
+            itemPrice.classList.add('itemPrice');
+            itemPrice.textContent = "Price Tag: " + item.itemPrice + item.itemPriceTag;
+            var userItemStock = document.createElement('p');
+            userItemStock.classList.add('userItemStock');
+            userItemStock.textContent = "Stock: " + item.itemStock;
+            var itemImage = document.createElement("img");
+            itemImage.classList.add('itemImage');
+            itemImage.setAttribute('id', 'itemImage');
+            itemImage.src = "/images/" + item.itemImage;
+            userItemList.appendChild(userItemName);
+            userItemList.appendChild(itemPrice);
+            userItemList.appendChild(userItemStock);
+            userItemList.appendChild(itemImage);
+            myitemlist.appendChild(userItemList);
+        });
+    });
+}
+function GotoMyListings() {
+    window.location.href = '/Home/AddNewItem';
+}
 //# sourceMappingURL=items.js.map

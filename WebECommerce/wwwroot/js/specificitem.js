@@ -196,55 +196,54 @@ if (addToCartButton !== null) {
     addToCartButton.addEventListener("click", AddToCart, false);
 }
 var searchBar = document.getElementById('searchBar');
-searchBar.addEventListener("input", function (event) {
-    /*if (event.key==='Enter') {*/
-    var userInput = searchBar.value;
-    var itemsDiv = document.querySelector('#itemsDiv');
-    var url = 'https://localhost:7004/api/Items/GetSpecificItem' + '?itemName=' + userInput;
-    fetch(url, {
-        method: 'GET'
-    })
-        .then(function (response) {
-        if (response.ok) {
-            // Request was successful
-            return response.json();
-        }
-        else {
-            // Request failed
-            throw new Error(response.statusText);
-        }
-    })
-        .then(function (data) {
-        if (data !== null) {
-            data.forEach(function (item) {
-                var itemDiv = document.createElement("div");
-                itemDiv.classList.add('itemDiv');
-                itemDiv.setAttribute('id', 'itemDiv');
-                var itemImage = document.createElement("img");
-                itemImage.classList.add('itemImage');
-                itemImage.setAttribute('id', 'itemImage');
-                itemImage.src = "/images/" + item.itemImage;
-                var itemPara = document.createElement("p");
-                itemPara.classList.add('itemBox');
-                itemPara.setAttribute('id', 'itemBox');
-                itemPara.textContent = item.itemName;
-                var itemPrice = document.createElement("p");
-                itemPrice.classList.add('itemPrice');
-                itemPrice.textContent = item.itemPrice + " " + item.itemPriceTag;
-                itemDiv.appendChild(itemPara);
-                itemDiv.appendChild(itemPrice);
-                itemDiv.appendChild(itemImage);
-                itemsDiv.appendChild(itemDiv);
-            });
-        }
-        else {
-            itemsDiv.innerHTML = '';
-            /*window.alert("no item found");*/
-        }
-    })
-        .catch(function (error) {
-        console.error('Error occurred while sending the request:', error);
+if (searchBar) {
+    searchBar.addEventListener("input", function (event) {
+        var userInput = searchBar.value;
+        var itemsDiv = document.querySelector('#itemsDiv');
+        var url = 'https://localhost:7004/api/Items/GetSpecificItem' + '?itemName=' + userInput;
+        fetch(url, {
+            method: 'GET'
+        })
+            .then(function (response) {
+            if (response.ok) {
+                // Request was successful
+                return response.json();
+            }
+            else {
+                // Request failed
+                throw new Error(response.statusText);
+            }
+        })
+            .then(function (data) {
+            if (data !== null) {
+                data.forEach(function (item) {
+                    var itemDiv = document.createElement("div");
+                    itemDiv.classList.add('itemDiv');
+                    itemDiv.setAttribute('id', 'itemDiv');
+                    var itemImage = document.createElement("img");
+                    itemImage.classList.add('itemImage');
+                    itemImage.setAttribute('id', 'itemImage');
+                    itemImage.src = "/images/" + item.itemImage;
+                    var itemPara = document.createElement("p");
+                    itemPara.classList.add('itemBox');
+                    itemPara.setAttribute('id', 'itemBox');
+                    itemPara.textContent = item.itemName;
+                    var itemPrice = document.createElement("p");
+                    itemPrice.classList.add('itemPrice');
+                    itemPrice.textContent = item.itemPrice + " " + item.itemPriceTag;
+                    itemDiv.appendChild(itemPara);
+                    itemDiv.appendChild(itemPrice);
+                    itemDiv.appendChild(itemImage);
+                    itemsDiv.appendChild(itemDiv);
+                });
+            }
+            else {
+                itemsDiv.innerHTML = '';
+            }
+        })
+            .catch(function (error) {
+            console.error('Error occurred while sending the request:', error);
+        });
     });
-    /*}*/
-});
+}
 //# sourceMappingURL=specificitem.js.map
