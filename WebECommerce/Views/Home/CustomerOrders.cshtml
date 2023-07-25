@@ -34,6 +34,7 @@
 
     /* Order date and amount styles */
     .orderDate,
+    .orderId,
     .itemAmount {
         color: #666;
         font-size: 14px;
@@ -116,8 +117,8 @@
         display: block;
     }
 
-    .itemBox{
-        color:black;
+    .itemBox {
+        color: black;
     }
 </style>
 <body>
@@ -132,14 +133,16 @@
             </div>
         </div>
     </div>
+    <div class="searchBarDiv">
+        <input type="text" class="guidsearchBar" id="guidsearchBar" />
+    </div>
     <div id="orderDiv" class="order-summary">
-
-</div>
+    </div>
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         MyOrders();
-        
+
         const toggleDarkModeButton = document.getElementById('toggleDarkMode');
         const prefersDarkMode = JSON.parse(localStorage.getItem('darkModePreference'));
 

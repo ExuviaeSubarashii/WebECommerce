@@ -59,35 +59,36 @@ function SendOrder() {
     if (storedCartList) {
         var cl_2 = JSON.parse(storedCartList);
         var itemCounts_2 = {};
-        var itemTotalPrices_1 = {};
         var totalPrice_2 = 0;
-        // Calculate item counts, total prices, and the total price of all items
+        // Calculate item counts and the total price of all items
         cl_2.itemName.forEach(function (itemName, index) {
             if (itemCounts_2[itemName]) {
                 itemCounts_2[itemName]++;
-                itemTotalPrices_1[itemName] += parseFloat(cl_2.itemPrice[index]) * itemCounts_2[itemName];
             }
             else {
                 itemCounts_2[itemName] = 1;
-                itemTotalPrices_1[itemName] = parseFloat(cl_2.itemPrice[index]);
             }
             totalPrice_2 += parseFloat(cl_2.itemPrice[index]) * itemCounts_2[itemName];
         });
         // Create separate variables for itemName and itemCount
         var itemNames = '';
         var itemAmounts = '';
+        var itemTotalPricesString = '';
         // Generate itemName and itemCount strings
         for (var itemName in itemCounts_2) {
             var itemCount = itemCounts_2[itemName];
             itemNames += "".concat(itemName, ",");
             itemAmounts += "".concat(itemCount, ",");
+            itemTotalPricesString += "".concat(cl_2.itemPrice[itemCount], ", ");
         }
-        // Remove the trailing comma
+        // Remove the trailing comma and space from itemNames and itemAmounts
         itemNames = itemNames.slice(0, -1);
         itemAmounts = itemAmounts.slice(0, -1);
+        // Remove the trailing comma and space from itemTotalPricesString
+        itemTotalPricesString = itemTotalPricesString.slice(0, -2);
         console.log('Item Names:', itemNames);
         console.log('Item Amounts:', itemAmounts);
-        console.log('Total Price:', totalPrice_2.toFixed(2));
+        console.log('Total Price:', itemTotalPricesString);
         // Send the itemNames, itemAmounts, and totalPrice securely to your API using fetch
         var cardNumber = document.getElementById('cardNumber');
         var expirationDate = document.getElementById('expirationDate');
@@ -97,7 +98,7 @@ function SendOrder() {
         var orderData = {
             itemNames: itemNames,
             itemAmounts: itemAmounts,
-            totalPrice: totalPrice_2,
+            totalPrice: itemTotalPricesString,
             ordererName: userEmail,
             cardNumber: cardNumber.value,
             expirationDate: expirationDate.value,

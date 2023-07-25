@@ -72,7 +72,7 @@ function ClearCartList() {
 interface OrderData {
     itemNames: string;
     itemAmounts: string;
-    totalPrice: number;
+    totalPrice: string;
     ordererName: string;
     cardNumber: string;
     expirationDate: string;
@@ -86,17 +86,14 @@ function SendOrder() {
     if (storedCartList) {
         const cl: CartList = JSON.parse(storedCartList);
         const itemCounts: { [itemName: string]: number } = {};
-        const itemTotalPrices: { [itemName: string]: number } = {};
         let totalPrice = 0;
 
-        // Calculate item counts, total prices, and the total price of all items
+        // Calculate item counts and the total price of all items
         cl.itemName.forEach((itemName, index) => {
             if (itemCounts[itemName]) {
                 itemCounts[itemName]++;
-                itemTotalPrices[itemName] += parseFloat(cl.itemPrice[index]) * itemCounts[itemName];
             } else {
                 itemCounts[itemName] = 1;
-                itemTotalPrices[itemName] = parseFloat(cl.itemPrice[index]);
             }
             totalPrice += parseFloat(cl.itemPrice[index]) * itemCounts[itemName];
         });
@@ -104,21 +101,26 @@ function SendOrder() {
         // Create separate variables for itemName and itemCount
         let itemNames = '';
         let itemAmounts = '';
+        let itemTotalPricesString = '';
 
         // Generate itemName and itemCount strings
         for (const itemName in itemCounts) {
             const itemCount = itemCounts[itemName];
             itemNames += `${itemName},`;
             itemAmounts += `${itemCount},`;
+            itemTotalPricesString += `${cl.itemPrice[itemCount]}, `;
         }
 
-        // Remove the trailing comma
+        // Remove the trailing comma and space from itemNames and itemAmounts
         itemNames = itemNames.slice(0, -1);
         itemAmounts = itemAmounts.slice(0, -1);
 
+        // Remove the trailing comma and space from itemTotalPricesString
+        itemTotalPricesString = itemTotalPricesString.slice(0, -2);
+
         console.log('Item Names:', itemNames);
         console.log('Item Amounts:', itemAmounts);
-        console.log('Total Price:', totalPrice.toFixed(2));
+        console.log('Total Price:', itemTotalPricesString);
 
         // Send the itemNames, itemAmounts, and totalPrice securely to your API using fetch
         const cardNumber = document.getElementById('cardNumber') as HTMLInputElement;
@@ -130,7 +132,7 @@ function SendOrder() {
         const orderData: OrderData = {
             itemNames: itemNames,
             itemAmounts: itemAmounts,
-            totalPrice: totalPrice,
+            totalPrice: itemTotalPricesString,
             ordererName: userEmail,
             cardNumber: cardNumber.value,
             expirationDate: expirationDate.value,
