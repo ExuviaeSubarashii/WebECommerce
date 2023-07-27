@@ -57,6 +57,7 @@ function loadCartListIntoCartListDiv() {
             itemContainer.appendChild(itemInfoElement);
             itemContainer.appendChild(itemImage);
             cartListDiv.appendChild(itemContainer);
+
         });
 
         const totalPriceElement = document.createElement('p');

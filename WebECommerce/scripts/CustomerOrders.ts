@@ -28,10 +28,13 @@ function MyOrders() {
 
                 var orderId = document.createElement('p');
                 orderId.classList.add('orderId');
+                orderId.setAttribute('id', 'orderId');
                 orderId.textContent = "Order Id: " + item.orderGuid;
+
 
                 var itemName = document.createElement('p');
                 itemName.classList.add('itemBox');
+                itemName.setAttribute('id', 'itemName');
                 itemName.textContent = "Product Name: "+item.itemName;
 
                 var orderDate = document.createElement('p');
@@ -40,10 +43,12 @@ function MyOrders() {
 
                 var itemAmount = document.createElement('p');
                 itemAmount.classList.add('itemAmount');
+                itemAmount.setAttribute('id', 'itemAmount');
                 itemAmount.textContent = "Order Amount: "+item.itemAmount;
 
                 var totalPrice = document.createElement('p');
                 totalPrice.classList.add('totalPrice');
+                totalPrice.setAttribute('id', 'totalPrice');
                 totalPrice.textContent = "Total Price: "+item.totalPrice;
 
                 perOrderDiv.appendChild(itemName);
