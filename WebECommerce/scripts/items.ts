@@ -80,22 +80,18 @@ interface NewItemData {
     itemName: string;
     itemPrice: string;
     itemStock: number;
-    itemImage: string;
     userName: string;
 }
 function AddNewItem() {
-    const myitemlist = document.getElementById('myitemlist');
     const userEmail = window.localStorage.getItem('userEmail');
-    const itemName = document.querySelector('itemName') as HTMLInputElement;
-    const itemPrice = document.querySelector('itemPrice') as HTMLInputElement;
-    const itemStock = document.querySelector('itemStock') as HTMLInputElement;
-    const itemImage = document.querySelector('imageInput') as HTMLInputElement;
+    const itemName = document.querySelector('.itemName') as HTMLInputElement;
+    const itemPrice = document.querySelector('.itemPrice') as HTMLInputElement;
+    const itemStock = document.querySelector('.itemStock') as HTMLInputElement;
 
     const newItemData: NewItemData = {
         itemName: itemName.value,
         itemPrice: itemPrice.value,
         itemStock: parseInt(itemStock.value),
-        itemImage: itemImage.value,
         userName: userEmail
     };
     const url = 'https://localhost:7004/api/Items/AddNewItem';
@@ -106,33 +102,22 @@ function AddNewItem() {
         },
         body: JSON.stringify(newItemData),
     })
-        .then((response) => response.json())
-        .then((data) => {
-            data.forEach(item => {
-
-                let userItemList = document.createElement('div');
-                userItemList.classList.add('userItemList');
-                userItemList.setAttribute('id', 'userItemList');
-
-                var userItemName = document.createElement('p');
-                userItemName.classList.add('userItemName');
-                userItemName.textContent = "Product Name: " + item.itemName;
-
-                var itemPrice = document.createElement('p');
-                itemPrice.classList.add('itemPrice');
-                itemPrice.textContent = "Price Tag: " + item.itemPrice + item.itemPriceTag;
-
-                var userItemStock = document.createElement('p');
-                userItemStock.classList.add('userItemStock');
-                userItemStock.textContent = "Stock: " + item.itemStock;
-
-                var itemImage = document.createElement("img");
-                itemImage.classList.add('itemImage');
-                itemImage.setAttribute('id', 'itemImage');
-                itemImage.src = "/images/" + item.itemImage;
-            });
+        .then(response => {
+            if (response.ok) {
+                // Handle successful response
+                return response.json();
+            } else {
+                // Handle error response
+                throw new Error('Failed to add new item.');
+            }
+        })
+        .then(GetMyListings)
+        .catch(error => {
+            console.log(error);
         });
 }
+
+
 
 function GetMyListings() {
     const userEmail = window.localStorage.getItem('userEmail');

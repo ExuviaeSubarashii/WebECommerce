@@ -67,17 +67,14 @@ if (element !== null) {
     element.addEventListener("click", gotopage, false);
 }
 function AddNewItem() {
-    var myitemlist = document.getElementById('myitemlist');
     var userEmail = window.localStorage.getItem('userEmail');
-    var itemName = document.querySelector('itemName');
-    var itemPrice = document.querySelector('itemPrice');
-    var itemStock = document.querySelector('itemStock');
-    var itemImage = document.querySelector('imageInput');
+    var itemName = document.querySelector('.itemName');
+    var itemPrice = document.querySelector('.itemPrice');
+    var itemStock = document.querySelector('.itemStock');
     var newItemData = {
         itemName: itemName.value,
         itemPrice: itemPrice.value,
         itemStock: parseInt(itemStock.value),
-        itemImage: itemImage.value,
         userName: userEmail
     };
     var url = 'https://localhost:7004/api/Items/AddNewItem';
@@ -88,26 +85,19 @@ function AddNewItem() {
         },
         body: JSON.stringify(newItemData),
     })
-        .then(function (response) { return response.json(); })
-        .then(function (data) {
-        data.forEach(function (item) {
-            var userItemList = document.createElement('div');
-            userItemList.classList.add('userItemList');
-            userItemList.setAttribute('id', 'userItemList');
-            var userItemName = document.createElement('p');
-            userItemName.classList.add('userItemName');
-            userItemName.textContent = "Product Name: " + item.itemName;
-            var itemPrice = document.createElement('p');
-            itemPrice.classList.add('itemPrice');
-            itemPrice.textContent = "Price Tag: " + item.itemPrice + item.itemPriceTag;
-            var userItemStock = document.createElement('p');
-            userItemStock.classList.add('userItemStock');
-            userItemStock.textContent = "Stock: " + item.itemStock;
-            var itemImage = document.createElement("img");
-            itemImage.classList.add('itemImage');
-            itemImage.setAttribute('id', 'itemImage');
-            itemImage.src = "/images/" + item.itemImage;
-        });
+        .then(function (response) {
+        if (response.ok) {
+            // Handle successful response
+            return response.json();
+        }
+        else {
+            // Handle error response
+            throw new Error('Failed to add new item.');
+        }
+    })
+        .then(GetMyListings)
+        .catch(function (error) {
+        console.log(error);
     });
 }
 function GetMyListings() {
