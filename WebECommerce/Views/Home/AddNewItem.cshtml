@@ -64,14 +64,27 @@
             .myitemlist .item img {
                 max-width: 100px;
             }
-
+            .userItemList{
+        font-size: 13px;
+        font-family: source_sans_proregular !important;
+        margin: 0;
+        display: block;
+        padding: 20px;
+            }
+            .myitemlist{
+        font-size: 13px;
+        font-family: source_sans_proregular !important;
+        margin: 0;
+        padding: 0;
+        display: block;
+            }
 </style>
 <body>
     <div class="newItemPanel">
         <input class="itemName" id="itemName" placeholder="ItemName"/>
         <input class="itemPrice" id="itemPrice"placeholder="Price"/>
         <input class="itemStock" id="itemStock" placeholder="Stock"/>
-        <button type="submit" class="sendItems" id="sendItems" onclick="AddNewItem()"></button>
+        <button type="submit" class="sendItems" id="sendItems" onclick="AddNewItem()">Add Your Listing</button>
     </div>
     <div class="myitemlist" id="myitemlist">
 

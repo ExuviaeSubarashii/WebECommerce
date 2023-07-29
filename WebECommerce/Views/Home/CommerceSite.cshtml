@@ -49,10 +49,15 @@
     }
 
     .itemsDiv {
-        margin-bottom: 20px;
+        /*margin-bottom: 20px;
         padding: 10px;
         border: 1px solid #ddd;
-        background-color: #f9f9f9;
+        background-color: #f9f9f9;*/
+        font-size: 13px;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
     }
 
     .cartListDiv {
@@ -68,7 +73,7 @@
     }
 
     .itemDiv {
-        width: 150px;
+       /* width: 150px;
         text-align: center;
         padding: 20px;
         background-color: #081b29;
@@ -80,9 +85,55 @@
         border-color: black;
         border-style: solid;
         left: 50px;
-        color: white;
+        color: white;*/
+        font-size: 13px;
+        font-family: source_sans_proregular !important;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+        box-shadow: none;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: box-shadow 0.2s linear;
+        border: 1px solid #E6E6E6;
+        box-sizing: border-box;
     }
 
+    .itemBox{
+        font-family: source_sans_proregular;
+        text-align: left;
+        position: relative;
+        line-height: normal;
+        font-size: 14px;
+        color: white;
+        margin: 2px 0;
+    }
+    .itemImage{
+        font-size: 13px;
+        font-family: source_sans_proregular;
+        color: #1b1b1b;
+        margin: 0;
+        padding: 0;
+        display: block;
+        height: 100%;
+        position: relative;
+    }
+    .itemPrice{
+        font-family: source_sans_proregular;
+        white-space: nowrap;
+        margin: 0;
+        padding: 0;
+        display: block;
+        align-self: center;
+        margin-right: 5px;
+        line-height: 20px;
+        font-size: 16px;
+        font-weight: 700;
+        color: #BB0000;
+    }
     .buyoutButtons {
         white-space: nowrap;
         overflow: hidden;
@@ -119,10 +170,30 @@
         height: 50px;
     }
 
-    .searchBar {
+    .searchBarDiv{
+        font-size: 13px;
+        font-family: source_sans_proregular !important;
+        margin: 0;
+        padding: 0;
         display: flex;
-        justify-content: center;
-        align-items: center;
+    }
+
+    .searchBar{
+        margin: 0;
+        font-family: source_sans_proregular !important;
+        -webkit-box-flex: 1;
+        flex: 1;
+        font-size: 14px;
+        color: #333;
+        background-color: #f3f3f3;
+        border: 2px solid rgba(0,0,0,0);
+        border-radius: 6px;
+        padding: 10px 40px 10px 15px;
+        box-sizing: border-box;
+        outline: none;
+        transition: all ease .3s;
+        height: auto;
+        line-height: unset;
     }
 </style>
 

@@ -1,5 +1,5 @@
+var userEmail = window.localStorage.getItem('userEmail');
 function GetAllItems() {
-    var userEmail = window.localStorage.getItem('userEmail');
     var userNameTag = document.getElementById('userNameTag');
     userNameTag.textContent = userEmail;
     var itemsDiv = document.querySelector('#itemsDiv');
@@ -33,9 +33,9 @@ function GetAllItems() {
             var itemPrice = document.createElement("p");
             itemPrice.classList.add('itemPrice');
             itemPrice.textContent = item.itemPrice + " " + item.itemPriceTag;
+            itemDiv.appendChild(itemImage);
             itemDiv.appendChild(itemPara);
             itemDiv.appendChild(itemPrice);
-            itemDiv.appendChild(itemImage);
             itemsDiv.appendChild(itemDiv);
         });
     })
@@ -67,7 +67,6 @@ if (element !== null) {
     element.addEventListener("click", gotopage, false);
 }
 function AddNewItem() {
-    var userEmail = window.localStorage.getItem('userEmail');
     var itemName = document.querySelector('.itemName');
     var itemPrice = document.querySelector('.itemPrice');
     var itemStock = document.querySelector('.itemStock');
@@ -101,7 +100,6 @@ function AddNewItem() {
     });
 }
 function GetMyListings() {
-    var userEmail = window.localStorage.getItem('userEmail');
     var myitemlist = document.getElementById('myitemlist');
     var url = 'https://localhost:7004/api/Items/GetMyListings' + '?userName=' + userEmail;
     fetch(url, {

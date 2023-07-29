@@ -9,9 +9,6 @@ function Login() {
     })
         .then(function (response) {
         if (response.ok) {
-            // Request was successful
-            //return response.text();
-            console.log("it worked");
             window.localStorage.setItem('userEmail', userEmail);
             window.location.href = '/Home/ReturnCommerceSite';
         }

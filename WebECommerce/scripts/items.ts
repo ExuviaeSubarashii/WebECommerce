@@ -1,5 +1,5 @@
-﻿function GetAllItems() {
-    const userEmail = window.localStorage.getItem('userEmail');
+﻿const userEmail = window.localStorage.getItem('userEmail');
+function GetAllItems() {
     var userNameTag = document.getElementById('userNameTag');
     userNameTag.textContent = userEmail;
     const itemsDiv = document.querySelector('#itemsDiv');
@@ -17,7 +17,7 @@
                 throw new Error(response.statusText);
             }
         })
-    
+
         .then(function (data) {
             data.forEach(item => {
                 var itemDiv = document.createElement("div");
@@ -36,12 +36,12 @@
 
                 var itemPrice = document.createElement("p");
                 itemPrice.classList.add('itemPrice');
-                itemPrice.textContent = item.itemPrice +" "+ item.itemPriceTag;
+                itemPrice.textContent = item.itemPrice + " " + item.itemPriceTag;
 
+                itemDiv.appendChild(itemImage);
                 itemDiv.appendChild(itemPara);
                 itemDiv.appendChild(itemPrice);
-                itemDiv.appendChild(itemImage);
-                
+
 
                 itemsDiv.appendChild(itemDiv);
             });
@@ -83,7 +83,6 @@ interface NewItemData {
     userName: string;
 }
 function AddNewItem() {
-    const userEmail = window.localStorage.getItem('userEmail');
     const itemName = document.querySelector('.itemName') as HTMLInputElement;
     const itemPrice = document.querySelector('.itemPrice') as HTMLInputElement;
     const itemStock = document.querySelector('.itemStock') as HTMLInputElement;
@@ -120,7 +119,7 @@ function AddNewItem() {
 
 
 function GetMyListings() {
-    const userEmail = window.localStorage.getItem('userEmail');
+    
     const myitemlist = document.getElementById('myitemlist');
     const url = 'https://localhost:7004/api/Items/GetMyListings' + '?userName=' + userEmail;
     fetch(url, {
@@ -133,23 +132,23 @@ function GetMyListings() {
         .then((data) => {
             data.forEach(item => {
 
-                let userItemList = document.createElement('div');
+                const userItemList = document.createElement('div');
                 userItemList.classList.add('userItemList');
                 userItemList.setAttribute('id', 'userItemList');
 
-                var userItemName = document.createElement('p');
+                const userItemName = document.createElement('p');
                 userItemName.classList.add('userItemName');
                 userItemName.textContent = "Product Name: " + item.itemName;
 
-                var itemPrice = document.createElement('p');
+                const itemPrice = document.createElement('p');
                 itemPrice.classList.add('itemPrice');
                 itemPrice.textContent = "Price Tag: " + item.itemPrice + item.itemPriceTag;
 
-                var userItemStock = document.createElement('p');
+                const userItemStock = document.createElement('p');
                 userItemStock.classList.add('userItemStock');
                 userItemStock.textContent = "Stock: " + item.itemStock;
 
-                var itemImage = document.createElement("img");
+                const itemImage = document.createElement("img");
                 itemImage.classList.add('itemImage');
                 itemImage.setAttribute('id', 'itemImage');
                 itemImage.src = "/images/" + item.itemImage;

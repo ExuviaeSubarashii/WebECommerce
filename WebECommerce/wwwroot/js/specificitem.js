@@ -94,12 +94,12 @@ function SendOrder() {
         var expirationDate = document.getElementById('expirationDate');
         var securityCode = document.getElementById('cvvCode');
         var postalCode = document.getElementById('postalCode');
-        var userEmail = window.localStorage.getItem('userEmail');
+        var userEmail_1 = window.localStorage.getItem('userEmail');
         var orderData = {
             itemNames: itemNames,
             itemAmounts: itemAmounts,
             totalPrice: itemTotalPricesString,
-            ordererName: userEmail,
+            ordererName: userEmail_1,
             cardNumber: cardNumber.value,
             expirationDate: expirationDate.value,
             securityCode: securityCode.value,
