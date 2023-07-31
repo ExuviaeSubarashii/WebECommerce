@@ -81,41 +81,67 @@ interface NewItemData {
     itemPrice: string;
     itemStock: number;
     userName: string;
+    itemImage: File;
 }
 function AddNewItem() {
     const itemName = document.querySelector('.itemName') as HTMLInputElement;
     const itemPrice = document.querySelector('.itemPrice') as HTMLInputElement;
     const itemStock = document.querySelector('.itemStock') as HTMLInputElement;
+    const itemImage = document.querySelector('.itemImage') as HTMLInputElement;
+    const file = itemImage.files[0];
 
     const newItemData: NewItemData = {
         itemName: itemName.value,
         itemPrice: itemPrice.value,
         itemStock: parseInt(itemStock.value),
-        userName: userEmail
+        userName: userEmail,
+        itemImage: file
     };
+    //var byteArray;
+    //const reader = new FileReader();
+    //reader.onload = (event) => {
+    //    const resultArrayBuffer = event.target?.result as ArrayBuffer;
+    //    byteArray = new Uint8Array(resultArrayBuffer);
+    //    console.log(byteArray);
+    //};
+    //reader.readAsArrayBuffer(file);
+    //console.log(file);
     const url = 'https://localhost:7004/api/Items/AddNewItem';
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newItemData),
-    })
-        .then(response => {
-            if (response.ok) {
-                // Handle successful response
-                return response.json();
-            } else {
-                // Handle error response
-                throw new Error('Failed to add new item.');
-            }
-        })
-        .then(GetMyListings)
-        .catch(error => {
-            console.log(error);
-        });
-}
 
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
+    var formData = new FormData();
+    formData.append('itemName', newItemData.itemName);
+    formData.append('itemPrice', newItemData.itemPrice);
+    formData.append('itemStock', newItemData.itemStock.toString());
+    formData.append('userName', newItemData.userName);
+    formData.append('itemImage', newItemData.itemImage);
+
+    xhr.send(formData);
+
+
+
+    //fetch(url, {
+    //    method: 'POST',
+    //    headers: {
+    //        'Content-Type': 'application/json',
+    //    },
+    //    body: JSON.stringify(newItemData),
+    //})
+    //    .then(response => {
+    //        if (response.ok) {
+    //            // Handle successful response
+    //            return response.json();
+    //        } else {
+    //            // Handle error response
+    //            throw new Error('Failed to add new item.');
+    //        }
+    //    })
+    //    .then(GetMyListings)
+    //    .catch(error => {
+    //        console.log(error);
+    //    });
+}
 
 
 function GetMyListings() {
