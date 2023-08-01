@@ -97,15 +97,7 @@ function AddNewItem() {
         userName: userEmail,
         itemImage: file
     };
-    //var byteArray;
-    //const reader = new FileReader();
-    //reader.onload = (event) => {
-    //    const resultArrayBuffer = event.target?.result as ArrayBuffer;
-    //    byteArray = new Uint8Array(resultArrayBuffer);
-    //    console.log(byteArray);
-    //};
-    //reader.readAsArrayBuffer(file);
-    //console.log(file);
+
     const url = 'https://localhost:7004/api/Items/AddNewItem';
 
     var xhr = new XMLHttpRequest();
