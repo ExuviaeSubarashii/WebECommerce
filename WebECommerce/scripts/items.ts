@@ -29,6 +29,16 @@ function GetAllItems() {
                 itemImage.setAttribute('id', 'itemImage');
                 itemImage.src = "/images/" + item.itemImage;
 
+                var itemId = document.createElement("p");
+                itemId.classList.add('itemId');
+                itemId.setAttribute('id', 'itemId');
+                itemId.textContent = item.itemId;
+
+                var wishListbutton = document.createElement("button");
+                wishListbutton.classList.add('wishListbutton');
+                wishListbutton.setAttribute('id', 'wishListbutton');
+                wishListbutton.textContent = "Wish";
+
                 var itemPara = document.createElement("p");
                 itemPara.classList.add('itemBox');
                 itemPara.setAttribute('id', 'itemBox');
@@ -39,9 +49,10 @@ function GetAllItems() {
                 itemPrice.textContent = item.itemPrice + " " + item.itemPriceTag;
 
                 itemDiv.appendChild(itemImage);
+                itemDiv.appendChild(itemId);
                 itemDiv.appendChild(itemPara);
                 itemDiv.appendChild(itemPrice);
-
+                itemDiv.appendChild(wishListbutton);
 
                 itemsDiv.appendChild(itemDiv);
             });
@@ -66,16 +77,22 @@ function GetAllItems() {
 }
 
 
-function gotopage(event) {
-    const itemName = event.target.querySelector('.itemBox');
-    const itemNameValue = itemName.textContent;
-    window.location.href = '/Home/ViewItem?itemName=' + encodeURIComponent(itemNameValue.trim());
+function gotopage(event: Event) {
+    const itemNameElement = (event.target as HTMLElement).closest('.itemBox');
+    if (itemNameElement) {
+        const itemNameValue = itemNameElement.textContent?.trim();
+        if (itemNameValue) {
+            const url = `/Home/ViewItem?itemName=${encodeURIComponent(itemNameValue)}`;
+            window.location.href = url;
+        }
+    }
 }
 
 const element = document.getElementById('itemsDiv');
 if (element !== null) {
     element.addEventListener("click", gotopage, false);
 }
+
 interface NewItemData {
     itemName: string;
     itemPrice: string;

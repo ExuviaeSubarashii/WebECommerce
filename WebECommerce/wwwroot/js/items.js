@@ -26,6 +26,14 @@ function GetAllItems() {
             itemImage.classList.add('itemImage');
             itemImage.setAttribute('id', 'itemImage');
             itemImage.src = "/images/" + item.itemImage;
+            var itemId = document.createElement("p");
+            itemId.classList.add('itemId');
+            itemId.setAttribute('id', 'itemId');
+            itemId.textContent = item.itemId;
+            var wishListbutton = document.createElement("button");
+            wishListbutton.classList.add('wishListbutton');
+            wishListbutton.setAttribute('id', 'wishListbutton');
+            wishListbutton.textContent = "Wish";
             var itemPara = document.createElement("p");
             itemPara.classList.add('itemBox');
             itemPara.setAttribute('id', 'itemBox');
@@ -34,8 +42,10 @@ function GetAllItems() {
             itemPrice.classList.add('itemPrice');
             itemPrice.textContent = item.itemPrice + " " + item.itemPriceTag;
             itemDiv.appendChild(itemImage);
+            itemDiv.appendChild(itemId);
             itemDiv.appendChild(itemPara);
             itemDiv.appendChild(itemPrice);
+            itemDiv.appendChild(wishListbutton);
             itemsDiv.appendChild(itemDiv);
         });
     })
@@ -58,9 +68,15 @@ function GetAllItems() {
     }
 }
 function gotopage(event) {
-    var itemName = event.target.querySelector('.itemBox');
-    var itemNameValue = itemName.textContent;
-    window.location.href = '/Home/ViewItem?itemName=' + encodeURIComponent(itemNameValue.trim());
+    var _a;
+    var itemNameElement = event.target.closest('.itemBox');
+    if (itemNameElement) {
+        var itemNameValue = (_a = itemNameElement.textContent) === null || _a === void 0 ? void 0 : _a.trim();
+        if (itemNameValue) {
+            var url = "/Home/ViewItem?itemName=".concat(encodeURIComponent(itemNameValue));
+            window.location.href = url;
+        }
+    }
 }
 var element = document.getElementById('itemsDiv');
 if (element !== null) {
