@@ -31,3 +31,6 @@ function LogOut() {
     window.location.href = '/Home/Index';
     localStorage.clear();
 }
+function GoToFavorites() {
+    window.location.href = '/Home/Favorites';
+}

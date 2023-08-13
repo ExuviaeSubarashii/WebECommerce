@@ -52,5 +52,9 @@ namespace WebECommerce.Controllers
         {
             return View("AddNewItem");
         }
+        public ActionResult Favorites()
+        {
+            return View("Favorites");
+        }
     }
 }

@@ -1,0 +1,27 @@
+﻿<body>
+<div class="searchBarDiv">
+    <input type="text" class="searchBar" id="searchBar" />
+</div>
+<div class="userPanel">
+    <div class="dropdown">
+        <button id="userNameTag" class="dropbtn">UserName</button>
+        <div class="dropdown-content">
+            <p id="userNotif" class="userNotif">Account Details</p>
+            <p id="myOrders" class="myOrders" onclick="GoToMyOrder()">My Orders</p>
+            <button id="toggleDarkMode">Toggle Dark Mode</button>
+            <p id="userAccount" class="userAccount" onclick="LogOut()">Logout</p>
+            <p id="userListings" class="userListings" onclick="GotoMyListings()">My Listings</p>
+        </div>
+    </div>
+</div>
+    <div class="favoritemsDiv" id="favoritemsDiv">
+    </div>
+</body>
+
+@section Scripts{
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            LoadMyWishList();
+        });
+    </script>
+}
